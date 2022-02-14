@@ -1,0 +1,162 @@
+/**********************************************************************
+  BEGIN MODAL DIALOG CODE (can also be loaded as external .js file)
+***********************************************************************/
+// Global for brower version branching.
+var Nav4 = ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+
+// One object tracks the current modal dialog opened from this window.
+var dialogWin = new Object()
+
+// Generate a modal dialog.
+// Parameters:
+//    url -- URL of the page/frameset to be loaded into dialog
+//    width -- pixel width of the dialog window
+//    height -- pixel height of the dialog window
+//    returnFunc -- reference to the function (on this page)
+//                  that is to act on the data returned from the dialog
+//    args -- [optional] any data you need to pass to the dialog
+var popup;
+function openDialog(url, width, height, returnFunc, args) {
+	
+	if (!dialogWin.win || (dialogWin.win && dialogWin.win.closed)) {
+		// Initialize properties of the modal dialog object.		
+		dialogWin.returnFunc = returnFunc
+		dialogWin.returnedValue = ""
+		dialogWin.args = args
+		dialogWin.url = url
+		dialogWin.width = width
+		dialogWin.height = height
+		// Keep name unique so Navigator doesn't overwrite an existing dialog.
+		if( typeof (new Date()).getMillisecondsClient == 'function'){
+			dialogWin.name = (new Date()).getMillisecondsClient().toString()
+		}
+		else{ 
+			dialogWin.name = (new Date()).getMilliseconds().toString()
+		}
+		// Assemble window attributes and try to center the dialog.
+		if (Nav4) {
+			// Center on the main window.
+			dialogWin.left = window.screenX + 
+			   ((window.outerWidth - dialogWin.width) / 2)
+			dialogWin.top = window.screenY + 
+			   ((window.outerHeight - dialogWin.height) / 2)
+			var attr = "screenX=" + dialogWin.left + 
+			   ",screenY=" + dialogWin.top + ",resizable=no,scrollbars=1,width=" + 
+			   dialogWin.width + ",height=" + dialogWin.height
+		} else {
+			// The best we can do is center in screen.
+			dialogWin.left = (screen.width - dialogWin.width) / 2
+			dialogWin.top = (screen.height - dialogWin.height) / 2
+			var attr = "left=" + dialogWin.left + ",top=" + 
+			   dialogWin.top + ",resizable=no,scrollbars=1,width=" + dialogWin.width + 
+			   ",height=" + dialogWin.height
+		}
+		
+		// Generate the dialog and make sure it has focus.
+		
+		//Commented the following line for Selenium integration
+		//dialogWin.win=window.open(dialogWin.url,dialogWin.name, attr);
+		
+			
+		popup=window.open(dialogWin.url,dialogWin.name, attr);
+		dialogWin.win=popup;
+		window.top.maskPage();
+		dialogWin.win.dialogAttributes = args;
+		dialogWin.win.focus();		
+		blockEvents();
+
+	} else {
+		dialogWin.win.focus()
+	}
+}
+
+
+
+// Grab all Navigator events that might get through to form
+// elements while dialog is open. For IE, disable form elements.
+
+
+
+
+
+
+/**************************
+  END MODAL DIALOG CODE
+**************************/
+
+//opening a dialog box
+function hisShowModal (url,width,height,returnFunc,args) {
+	openDialog(url, width, height, returnFunc,args);
+}
+
+
+// opening a dialog box and return a window handle 
+function hisShowModal1 (url,width,height,returnFunc,args) {
+	openDialog(url, width, height, returnFunc,args);
+	return dialogWin.win;
+}
+
+
+
+// Close the dialog
+function closeme() {
+	window.close()
+}
+
+// Handle click of OK button
+function transferValues(transferingFunc) {
+	opener.dialogWin.returnedValue = true;
+	if (opener && !opener.closed) {
+		if (transferingFunc) {
+			opener.dialogWin.returnedValue = transferingFunc ();				
+		}
+		
+		if (opener.dialogWin.returnedValue == false)  {
+			
+		} else {
+			if (opener.dialogWin.returnFunc) {
+				opener.dialogWin.returnFunc();
+			}
+			closeme();
+			return false;					
+		}
+	}	
+}
+
+
+// Handle click of OK button
+function transferValuesWithoutClose(transferingFunc) {
+	opener.dialogWin.returnedValue = true;
+	if (opener && !opener.closed) {
+		if (transferingFunc) {
+			opener.dialogWin.returnedValue = transferingFunc ();				
+		}
+		
+		if (opener.dialogWin.returnedValue == false)  {
+			
+		} else {
+			if (opener.dialogWin.returnFunc) {
+				opener.dialogWin.returnFunc();
+			}
+			return false;					
+		}
+	}	
+}
+
+// Handle click of Cancel button
+function handleCancel(transferingFunc,returningURL) {
+	if (opener && !opener.closed) {
+		transferingFunc ();
+		closeme()
+		return false
+	} else if (parent){
+		/*if (returningURL) {
+			
+		} else {
+			window.location = returningURL;	
+		}*/
+		//decide whether to call any function
+		
+	}
+}
+

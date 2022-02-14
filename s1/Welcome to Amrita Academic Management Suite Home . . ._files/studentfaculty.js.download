@@ -1,0 +1,1400 @@
+function checkPerson()
+{
+getJadeControl("action").value="UMS-SRM_SAVE_PERSON_SCREEN";
+if(getJadeControl("txteditfirstName","addst").value==""||!hasWhiteSpace(getJadeControl("txteditfirstName","addst").value))
+{
+	alert("Please Enter First Name");
+	getJadeControl("txteditfirstName","addst").value="";
+	getJadeControl("txteditfirstName","addst").focus();
+	return false;
+}
+/*if(getJadeControl("txteditlastName","addst").value==""||!hasWhiteSpace(getJadeControl("txteditlastName","addst").value))
+{
+	alert("Please Enter Last Name");
+	getJadeControl("txteditlastName","addst").value="";
+	getJadeControl("txteditlastName","addst").focus();
+	return false;
+}*/
+
+if(getJadeControl("txteditDob1","addst").value==""||!hasWhiteSpace(getJadeControl("txteditDob1","addst").value))
+{
+	alert("Please Enter DOB");
+	getJadeControl("txteditDob1","addst").focus();
+	return false;
+}
+if(checkDOB(getJadeControl("txteditDob1","addst").value))
+{
+	alert("Please Enter DOB as Age Between 2 and 100 ");
+	getJadeControl("txteditDob1","addst").value="";
+	getJadeControl("txteditDob1","addst").focus();
+	return false;
+}
+if(getJadeControl("selProgram","addst").value=="0")
+{
+	alert("Please Select Program");
+	getJadeControl("selProgram","addst").focus();
+	return false;
+}
+if(getJadeControl("selBranch","addst").value=="0")
+{
+	alert("Please Select Branch");
+	getJadeControl("selBranch","addst").focus();
+	return false;
+}
+if(getJadeControl("lstYearMaster","addst").value=="0")
+{
+	alert("Please Select Joining Year");
+	getJadeControl("lstYearMaster","addst").focus();
+	return false;
+}
+if(getJadeControl("selStep","addst").value=="0")
+{
+	alert("Please Select Semester");
+	getJadeControl("selStep","addst").focus();
+	return false;
+}
+if(getJadeControl("txteditDoe","addst").value==""||!hasWhiteSpace(getJadeControl("txteditDoe","addst").value))
+{
+	alert("Please Enter Date of Enrollment");
+	getJadeControl("txteditDoe","addst").value="";
+	getJadeControl("txteditDoe","addst").focus();
+	return false;
+}
+/*if(checkEnteredDate(getJadeControl("txteditDoe","addst").value))
+{
+	alert("Date of Enrollment must be less than or Equal to Current Date");
+	getJadeControl("txteditDoe","addst").value="";
+	getJadeControl("txteditDoe","addst").focus();
+	return false;
+}*/
+if(getJadeControl("selStatus","addst").value=="0")
+{
+	alert("Please Select Enrollment Status");
+	getJadeControl("selStatus","addst").focus();
+	return false;
+}
+document.forms[0].submit();
+return true;
+}
+function EditQualExam(fileName)
+{
+	hisShowModal (fileName, 900, 600, editQual , window) ;
+	return false;
+	/*var windowX=50;
+	var windowY=180;
+	dataitem = window.open(fileName, "dataitem", "toolbar=no,menubar=no,scrollbars=yes,width=950, height=650");
+	dataitem.moveTo(windowX,windowY);
+	return false;*/
+} 
+editQual = function () {
+	var app = dialogWin.returnedValue; 
+	if (app == null) 	
+		{ return false ; }
+	else
+		{
+		getJadeControl("action").value="UMS-SRM_STUDQUAL_REFRESHAFTERPOPUP_SCREEN";
+		document.forms[0].submit();
+		return true;
+		}
+}
+function openAddViewMarkPopup(fileName)
+{
+	hisShowModal (fileName, 900, 600, addViewMark , window) ;
+	return false;
+} 
+addViewMark = function () {
+	var approval = dialogWin.returnedValue; 
+	if (approval == null) 	
+		{ return false ; }
+	} 
+
+
+
+
+function checkPersonDetail()
+{
+	var personMail=getJadeControl("texteditEmail","adpsndet").value
+	var officialMail=getJadeControl("texteditOfficialEmail","adpsndet").value
+	 len=personMail.length;
+	 cnt=0;
+	 cnt1=0;
+	 len1=officialMail.length;
+	 
+if(getJadeControl("selectNationality","adpsndet").value=="0")
+{
+	alert("Please Enter Nationality");
+	getJadeControl("selectNationality","adpsndet").value="";
+	getJadeControl("selectNationality","adpsndet").focus();
+  return false;
+}
+
+if(getJadeControl("txteditAdharNo","adpsndet").value=="")
+{
+	alert("Please Enter Aadhaar No");
+	getJadeControl("txteditAdharNo","adpsndet").focus();
+  return false;
+}
+
+for(i=0;i<len;i++){
+	if(personMail.charAt(i)=='@')
+		cnt++;
+}
+if(cnt>1){
+	alert("Please Enter Only One email Id");
+	//getJadeControl("texteditEmail","adpsndet").value="";
+	getJadeControl("texteditEmail","adpsndet").focus();
+    return false;
+}
+for(i=0;i<len1;i++){
+	if(officialMail.charAt(i)=='@')
+		cnt1++;
+}
+if(cnt1>1){
+	alert("Please Enter Only One email Id");
+	//getJadeControl("texteditOfficialEmail","adpsndet").value="";
+	getJadeControl("texteditOfficialEmail","adpsndet").focus();
+    return false;
+}
+getJadeControl("action").value="UMS-SRMHR_SAVE_PERSONDETAIL_SCREEN";
+document.forms[0].submit();
+return true;
+}
+
+function checkContactDetail()
+{
+	//alert(getJadeControl("hidPrimaryContact").value);
+	//alert(getJadeControl("selContactType","addctdet").value+" selcontact");
+var hidPrimaryContact=getJadeControl("hidPrimaryContact").value;
+getJadeControl("action").value="UMS-SRMHR_SAVE_PERSONCONTACT_SCREEN";
+var chkBox=getJadeControl("chkprimContact","addctdet").checked;
+//alert("chkBox-->"+chkBox);
+var conTypeName=getJadeControl("selContactType","addctdet").options[getJadeControl("selContactType","addctdet").selectedIndex].text;
+//alert(conTypeName);
+if(getJadeControl("selContactType","addctdet").value=="0")
+{
+	alert("Please Select Contact Type");
+	getJadeControl("selContactType","addctdet").focus();
+	return false;
+}
+if(getJadeControl("txteditName","addctdet").value==""||!hasWhiteSpace(getJadeControl("txteditName","addctdet").value))
+{
+	alert("Please Enter Name");
+	getJadeControl("txteditName","addctdet").value="";
+	getJadeControl("txteditName","addctdet").focus();
+	return false;
+}
+
+if(getJadeControl("chkprimContact","addctdet").checked==false)
+	
+	if(getJadeControl("hidPrimaryContact").value=="")
+		{
+		alert("Please Save it as Primary Contact");
+		getJadeControl("chkprimContact","addctdet").focus();
+		return false;
+		}
+if(getJadeControl("hidPrimaryContact").value!="")
+	{
+	if(getJadeControl("chkprimContact","addctdet").checked==true)
+	if(getJadeControl("hidPrimaryContact").value!=conTypeName)
+		{
+		dial=confirm("Primary Contact Already Set for another Contact type "+hidPrimaryContact+". Do you want to proceed?");
+		if(dial==false){
+		//alert("Primary Contact Already Set for other Contact type");
+		getJadeControl("selContactType","addctdet").value="";
+		getJadeControl("selContactType","addctdet").focus();
+		return false;
+		}
+		}
+	
+	}
+
+
+
+document.forms[0].submit();
+return true;
+}
+function copyAddress()
+{
+	var check=getJadeControl("chkPerAddress","addpa").checked;
+	if(check==true)
+	{
+	getJadeControl("txtCommAdd1","addpa").value=getJadeControl("txtPermAdd1","addpa").value;	
+	getJadeControl("txtCommAdd2","addpa").value=getJadeControl("txtPermAdd2","addpa").value;	
+	getJadeControl("txtCommCity","addpa").value=getJadeControl("txtPermCity","addpa").value;
+	getJadeControl("txtCommDist","addpa").value=getJadeControl("txtPermDist","addpa").value;	
+	getJadeControl("lstStateMaster","addpa").value=getJadeControl("lstPermStateMaster","addpa").value;	
+	getJadeControl("lstCommCountryMaster","addpa").value=getJadeControl("lstPermCountryMaster","addpa").value;	
+	getJadeControl("txtCommPin","addpa").value=getJadeControl("txtPermPin","addpa").value;	
+	getJadeControl("txtCommPh1","addpa").value=getJadeControl("txtPermPh1","addpa").value;	
+	getJadeControl("txtCommPh2","addpa").value=getJadeControl("txtPermPh2","addpa").value;	
+	getJadeControl("txtCommPh3","addpa").value=getJadeControl("txtPermPh3","addpa").value;	
+	}
+	else
+	{
+	getJadeControl("txtCommAdd1","addpa").value="";	
+	getJadeControl("txtCommAdd2","addpa").value="";	
+	getJadeControl("txtCommCity","addpa").value="";
+	getJadeControl("txtCommDist","addpa").value="";	
+	getJadeControl("lstStateMaster","addpa").value="0";	
+	getJadeControl("lstCommCountryMaster","addpa").value="0";	
+	getJadeControl("txtCommPin","addpa").value="";	
+	getJadeControl("txtCommPh1","addpa").value="";	
+	getJadeControl("txtCommPh2","addpa").value="";	
+	getJadeControl("txtCommPh3","addpa").value="";	
+	
+	}
+
+
+}
+function checkAddressDetail()
+{
+getJadeControl("action").value="UMS-SRMHR_SAVE_PERSONADDRESS_SCREEN";
+
+if(getJadeControl("txtPermAdd1","addpa").value==""||!hasWhiteSpace(getJadeControl("txtPermAdd1","addpa").value))
+{
+	alert("Please Enter Permanent Address1");
+	getJadeControl("txtPermAdd1","addpa").value="";
+	getJadeControl("txtPermAdd1","addpa").focus();
+	return false;
+}
+/*if(getJadeControl("txtPermAdd2","addpa").value==""||!hasWhiteSpace(getJadeControl("txtPermAdd2","addpa").value))
+{
+	alert("Please Enter Permanent Address2");
+	getJadeControl("txtPermAdd2","addpa").value="";
+	getJadeControl("txtPermAdd2","addpa").focus();
+	return false;
+}*/
+if(isNaN(getJadeControl("txtPermPin","addpa").value))
+{
+	alert("Please Enter Numeric value for Permanent Address Pin Code");
+	getJadeControl("txtPermPin","addpa").value="";
+	getJadeControl("txtPermPin","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtPermPh1","addpa").value))
+{
+	alert("Please Enter Numeric value for Permanent Address Phone");
+	getJadeControl("txtPermPh1","addpa").value="";
+	getJadeControl("txtPermPh1","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtPermPh2","addpa").value))
+{
+	alert("Please Enter Numeric value for Permanent Address Phone");
+	getJadeControl("txtPermPh2","addpa").value="";
+	getJadeControl("txtPermPh2","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtPermPh3","addpa").value))
+{
+	alert("Please Enter Numeric value for Permanent Address Phone");
+	getJadeControl("txtPermPh3","addpa").value="";
+	getJadeControl("txtPermPh3","addpa").focus();
+	return false;
+}
+
+if(getJadeControl("txtCommAdd1","addpa").value==""||!hasWhiteSpace(getJadeControl("txtCommAdd1","addpa").value))
+{
+	alert("Please Enter Communication Address1");
+	getJadeControl("txtCommAdd1","addpa").value="";
+	getJadeControl("txtCommAdd1","addpa").focus();
+	return false;
+}
+/*if(getJadeControl("txtCommAdd2","addpa").value==""||!hasWhiteSpace(getJadeControl("txtCommAdd2","addpa").value))
+{
+	alert("Please Enter Communication Address2");
+	getJadeControl("txtCommAdd2","addpa").value="";
+	getJadeControl("txtCommAdd2","addpa").focus();
+	return false;
+}*/
+if(isNaN(getJadeControl("txtCommPin","addpa").value))
+{
+	alert("Please Enter Numeric value for Communication Address Pin Code");
+	getJadeControl("txtCommPin","addpa").value="";
+	getJadeControl("txtCommPin","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtCommPh1","addpa").value))
+{
+	alert("Please Enter Numeric value for Communication Address Phone");
+	getJadeControl("txtCommPh1","addpa").value="";
+	getJadeControl("txtCommPh1","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtCommPh2","addpa").value))
+{
+	alert("Please Enter Numeric value for Communication Address Phone");
+	getJadeControl("txtCommPh2","addpa").value="";
+	getJadeControl("txtCommPh2","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtCommPh3","addpa").value))
+{
+	alert("Please Enter Numeric value for Communication Address Phone");
+	getJadeControl("txtCommPh3","addpa").value="";
+	getJadeControl("txtCommPh3","addpa").focus();
+	return false;
+}
+/*if(getJadeControl("txtLocAdd1","addpa").value==""||!hasWhiteSpace(getJadeControl("txtLocAdd1","addpa").value))
+{
+	alert("Please Enter Local Address1");
+	getJadeControl("txtLocAdd1","addpa").value="";
+	getJadeControl("txtLocAdd1","addpa").focus();
+	return false;
+}
+if(getJadeControl("txtLocAdd2","addpa").value==""||!hasWhiteSpace(getJadeControl("txtLocAdd2","addpa").value))
+{
+	alert("Please Enter Local Address2");
+	getJadeControl("txtLocAdd2","addpa").value="";
+	getJadeControl("txtLocAdd2","addpa").focus();
+	return false;
+}*/
+ 
+if(getJadeControl("txtLocAdd1")) 
+ 
+ {
+if(isNaN(getJadeControl("txtLocPin","addpa").value))
+{
+	alert("Please Enter Numeric value for Local Address Pin Code");
+	getJadeControl("txtLocPin","addpa").value="";
+	getJadeControl("txtLocPin","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtLocPh1","addpa").value))
+{
+	alert("Please Enter Numeric value for Local Address Phone");
+	getJadeControl("txtLocPh1","addpa").value="";
+	getJadeControl("txtLocPh1","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtLocPh2","addpa").value))
+{
+	alert("Please Enter Numeric value for Local Address Phone");
+	getJadeControl("txtLocPh2","addpa").value="";
+	getJadeControl("txtLocPh2","addpa").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txtLocPh3","addpa").value))
+{
+	alert("Please Enter Numeric value for Local Address Phone");
+	getJadeControl("txtLocPh3","addpa").value="";
+	getJadeControl("txtLocPh3","addpa").focus();
+	return false;
+}
+}
+document.forms[0].submit();
+return true;
+}
+function checkHealthDetail()
+{
+getJadeControl("action").value="UMS-SRMHR_SAVE_PERSONHEALTH_SCREEN";
+if(getJadeControl("lstAdHDBloodGroup","addhdet").value=="0")
+{
+	alert("Please Select Blood Group");
+	getJadeControl("lstAdHDBloodGroup","addhdet").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txteditHeight","addhdet").value))
+{
+	alert("Please Enter Numeric value as Height");
+	getJadeControl("txteditHeight","addhdet").value="";
+	getJadeControl("txteditHeight","addhdet").focus();
+	return false;
+}
+if(getJadeControl("txteditHeight","addhdet").value!="")
+if(getJadeControl("txteditHeight","addhdet").value<1)
+{
+	alert("Please Enter Height Greater than Zero");
+	getJadeControl("txteditHeight","addhdet").value="";
+	getJadeControl("txteditHeight","addhdet").focus();
+	return false;
+}
+if(isNaN(getJadeControl("txteditWeight","addhdet").value))
+{
+	alert("Please Enter Numeric value as Weight");
+	getJadeControl("txteditWeight","addhdet").value="";
+	getJadeControl("txteditWeight","addhdet").focus();
+	return false;
+}
+if(getJadeControl("txteditWeight","addhdet").value!="")
+if(getJadeControl("txteditWeight","addhdet").value<1)
+{
+	alert("Please Enter Weight Greater than Zero");
+	getJadeControl("txteditWeight","addhdet").value="";
+	getJadeControl("txteditWeight","addhdet").focus();
+	return false;
+}
+
+document.forms[0].submit();
+return true;
+}
+function checkfaculty()
+{
+getJadeControl("action").value="UMS-SRMHR_SAVE_FACULTY_SCREEN";
+
+if(getJadeControl("txteditFname","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditFname","addfac").value))
+{
+	alert("Please Enter First Name");
+	getJadeControl("txteditFname","addfac").value="";
+	getJadeControl("txteditFname","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditLname","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditLname","addfac").value))
+{
+	alert("Please Enter Last Name");
+	getJadeControl("txteditLname","addfac").value="";
+	getJadeControl("txteditLname","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditFacDob","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditFacDob","addfac").value))
+{
+	alert("Please Enter DOB");
+	getJadeControl("txteditFacDob","addfac").value="";
+	getJadeControl("txteditFacDob","addfac").focus();
+	return false;
+}
+if(checkDOB(getJadeControl("txteditFacDob","addfac").value))
+{
+	alert("Please Enter DOB as Age Between 2 and 100 ");
+	getJadeControl("txteditFacDob","addfac").value="";
+	getJadeControl("txteditFacDob","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditDoj","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditDoj","addfac").value))
+{
+	alert("Please Enter Date of Join");
+	getJadeControl("txteditDoj","addfac").value="";
+	getJadeControl("txteditDoj","addfac").focus();
+	return false;
+}
+if(checkEnteredDate(getJadeControl("txteditDoj","addfac").value))
+{
+	alert("Date of Join must be less than or Equal to Current Date");
+	getJadeControl("txteditDoj","addfac").value="";
+	getJadeControl("txteditDoj","addfac").focus();
+	return false;
+}
+if(getJadeControl("selectDept","addfac").value=="0")
+{
+	alert("Please Select Department");
+	getJadeControl("selectDept","addfac").focus();
+	return false;
+}
+if(getJadeControl("selectDesig","addfac").value=="0")
+{
+	alert("Please Select Designation");
+	getJadeControl("selectDesig","addfac").focus();
+	return false;
+}
+if(getJadeControl("selectCategory","addfac").value=="0")
+{
+	alert("Please Select Category");
+	getJadeControl("selectCategory","addfac").focus();
+	return false;
+}
+document.forms[0].submit();
+return true;
+}
+function checkConfirmation(){
+getJadeControl("action").value="UMS-SRMHR_CONFIRMRESIGN_FACULTY_SCREEN";
+if(getJadeControl("txteditDor","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditDor","addfac").value))
+{
+	alert("Please Enter Resignation Date");
+	getJadeControl("txteditDor","addfac").value="";
+	getJadeControl("txteditDor","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditDor","addfac").value!="")
+{
+	if(checkEnteredDate(getJadeControl("txteditDor","addfac").value))
+	{
+	alert("Date of Resignation must be less than or Equal to Current Date");
+	getJadeControl("txteditDor","addfac").value="";
+	getJadeControl("txteditDor","addfac").focus();
+	return false;
+	}
+	if(checkTwoDates(getJadeControl("txteditDoj","addfac").value,getJadeControl("txteditDor","addfac").value))
+	{
+		alert("Date of Resignation must be greater than or Equal to the Date of Join");
+		getJadeControl("txteditDor","addfac").value="";
+		getJadeControl("txteditDor","addfac").focus();
+		return false;
+	}
+}
+if(getJadeControl("txteditEmpNo","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditEmpNo","addfac").value))
+{
+	alert("Please Enter Emp No");
+	getJadeControl("txteditEmpNo","addfac").value="";
+	getJadeControl("txteditEmpNo","addfac").focus();
+	return false;
+}
+if(getJadeControl("lstInstitution","addfac").value=="0")
+{
+	alert("Please Select Institution");
+	getJadeControl("lstInstitution","addfac").focus();
+	return false;
+}
+if(getJadeControl("selectDept","addfac").value=="0")
+{
+	alert("Please Select Department");
+	getJadeControl("selectDept","addfac").focus();
+	return false;
+}
+
+if(getJadeControl("selectDesig","addfac").value=="0")
+{
+	alert("Please Select Designation");
+	getJadeControl("selectDesig","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditFname","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditFname","addfac").value))
+{
+	alert("Please Enter First Name");
+	getJadeControl("txteditFname","addfac").value="";
+	getJadeControl("txteditFname","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditLname","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditLname","addfac").value))
+{
+	alert("Please Enter Last Name");
+	getJadeControl("txteditLname","addfac").value="";
+	getJadeControl("txteditLname","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditFacDob","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditFacDob","addfac").value))
+{
+	alert("Please Enter DOB");
+	getJadeControl("txteditFacDob","addfac").value="";
+	getJadeControl("txteditFacDob","addfac").focus();
+	return false;
+}
+if(checkDOB(getJadeControl("txteditFacDob","addfac").value))
+{
+	alert("Please Enter DOB as Age Between 2 and 100 ");
+	getJadeControl("txteditFacDob","addfac").value="";
+	getJadeControl("txteditFacDob","addfac").focus();
+	return false;
+}
+
+
+if(getJadeControl("txteditDoj","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditDoj","addfac").value))
+{
+	alert("Please Enter Date of Join");
+	getJadeControl("txteditDoj","addfac").value="";
+	getJadeControl("txteditDoj","addfac").focus();
+	return false;
+}
+if(checkEnteredDate(getJadeControl("txteditDoj","addfac").value))
+{
+	alert("Date of Join must be less than or Equal to Current Date");
+	getJadeControl("txteditDoj","addfac").value="";
+	getJadeControl("txteditDoj","addfac").focus();
+	return false;
+}
+if(getJadeControl("selectCategory","addfac").value=="0")
+{
+	alert("Please Select Category");
+	getJadeControl("selectCategory","addfac").focus();
+	return false;
+}
+if(getJadeControl("txteditRegno","addfac").value==""||!hasWhiteSpace(getJadeControl("txteditRegno","addfac").value))
+{
+	alert("Please Enter Reg No");
+	getJadeControl("txteditRegno","addfac").value="";
+	getJadeControl("txteditRegno","addfac").focus();
+	return false;
+}
+
+if(!window.confirm('Are you sure,Do you want to resign the staff?'))
+	return false;
+	
+document.forms[0].submit();
+return true;
+}
+function checkEmpNo(){
+getJadeControl("action").value="UMS-SRMHR_SHOW_FACULTY_SCREEN";
+if(getJadeControl("txteditEmpNo").value==""||!hasWhiteSpace(getJadeControl("txteditEmpNo").value))
+{
+	alert("Please Enter Emp No");
+	getJadeControl("txteditEmpNo").value="";
+	getJadeControl("txteditEmpNo").focus();
+	return false;
+}
+document.forms[0].submit();
+return true;
+}
+function checkRollNo()
+{
+getJadeControl("action").value="UMS-SRM_SHOW_STUDENT_SCREEN";
+//alert("RollNo"+getJadeControl("txtRollNo").value);
+//alert("hidroll"+getJadeControl("hidrollNo").value);
+if(getJadeControl("txtRollNo").value==""||!hasWhiteSpace(getJadeControl("txtRollNo").value))
+{
+	getJadeControl("hiddenEnrollment","addAttribute")=getJadeControl("txtRollNo").value
+	alert("Please Enter RollNo");
+	getJadeControl("txtRollNo").focus();
+	return false;
+}
+document.forms[0].submit();
+return true;
+}
+function hasWhiteSpace(s) 
+{
+
+     reWhiteSpace = new RegExp(/^\s+$/);
+
+     // Check for white space
+     if (reWhiteSpace.test(s)) {
+         // alert("Please Check Your Fields For Spaces");
+          return false;
+     }
+return true;
+}
+function checkDOB(dateOfBirth)
+{
+/*
+	//Function to check age is not less than 2 and greater than 100 ,by giving the dob
+	var today=new Date();
+	//Total time for one day
+        var one_day=1000*60*60*24; 
+//Here we need to split the inputed dates to convert them into standard format for furter execution
+        var x=dateOfBirth.split("/"); 
+		 //date format(Fullyear,month,date) 
+
+        var dob=new Date(x[2],(x[1]-1),x[0]);
+	alert(" Test By Om --> today.getFullYear() --> "+today.getFullYear());
+	alert(" Test By Om1 --> dob.getFullYearClient() --> "+dob.getFullYearClient());
+	//var diff=Math.ceil((today.getTime()-dob.getTime())/(one_day))-1;
+	//var yeardiff=(diff/365.2425);
+	var yeardiff= today.getFullYear() - dob.getFullYearClient();
+	if(yeardiff<2 || yeardiff>100)
+		return true;
+	else
+	   return false;
+*/
+
+	//Function to check age is not less than 2 and greater than 100 ,by giving the dob
+	var today=new Date();
+	//Here we need to split the inputed dates to convert them into standard format for furter execution
+        var x=dateOfBirth.split("/"); 
+        var dob=new Date(x[2],(x[1]-1),x[0]);
+	var yeardiff= today.getFullYear() - dob.getFullYearClient();
+	if(yeardiff<2 || yeardiff>100)
+		return true;
+	else
+	   return false;
+}
+
+function checkEnteredDate(dateGiven)
+{
+/*
+	var today=new Date();
+	//Total time for one day
+        var one_day=1000*60*60*24; 
+	//Here we need to split the inputed dates to convert them into standard format for furter execution
+        var x=dateGiven.split("/"); 
+	//date format(Fullyear,month,date) 
+
+        var tocheckDate=new Date(x[2],(x[1]-1),x[0]);
+	var diff=Math.ceil((today.getTime()-tocheckDate.getTime())/(one_day))-1;
+    if(diff<0)
+	    return true;
+	else
+	  return false;
+*/
+
+	var today=new Date();
+	//Here we need to split the inputed dates to convert them into standard format for furter execution
+    var x=dateGiven.split("/");
+    var tocheckDate=new Date(x[2],(x[1]-1),x[0]);
+	var yeardiff= today.getTime() - tocheckDate.getTimeClient();
+	
+    if(yeardiff<0)
+		return true;
+	else
+	  	return false;
+}
+
+function checkTwoDates(first,second)
+{
+/*
+	//Total time for one day
+        var one_day=1000*60*60*24; 
+	//Here we need to split the inputed dates to convert them into standard format for furter execution
+        var x=first.split("/"); 
+	//date format(Fullyear,month,date) 
+	var firstDate=new Date(x[2],(x[1]-1),x[0]);
+		var y=second.split("/");
+	var secondDate=new Date(y[2],(y[1]-1),y[0]);
+
+	var diff=Math.ceil((firstDate.getTime()-secondDate.getTime())/(one_day))-1;
+
+	if(diff>=0)
+	    return true;
+	else
+	   return false;
+*/
+
+	//Here we need to split the inputed dates to convert them into standard format for furter execution
+        var x=first.split("/"); 
+	var firstDate=new Date(x[2],(x[1]-1),x[0]);
+	var y=second.split("/");
+	var secondDate=new Date(y[2],(y[1]-1),y[0]);
+	var yeardiff= firstDate.getTimeClient() - secondDate.getTimeClient();
+
+	if(yeardiff>0)
+	    return true;
+	else
+	   return false;
+}
+function openRollNoBrowser(value)
+ {     
+  if(value == "Student")
+  
+   hisShowModal ("SearchStudentMaster.jsp?action=UMS-SRM_OPEN_STUDENTBROWSER", 850, 400, addSelectedItems1 , window) ;
+ 
+   }
+
+
+addSelectedItems1 = function () {
+	 
+		var rollNo = dialogWin.returnedValue; 
+			
+		if (rollNo == null) 	
+		{ return false ; }
+	
+    	addRollNoRow(rollNo)
+
+	}  
+	function addRollNoRow(rollNo)
+	{
+	   getJadeControl("txtRollNo").value=rollNo;
+}
+
+function openEmpNoBrowser(value)
+ {     
+  if(value == "Staff")
+  
+   hisShowModal ("SearchFacultyMaster.jsp?action=UMS-SRMHR_OPEN_FACULTYBROWSER&curstatus=ALL", 850, 400, addSelectedEmpItems , window) ;
+   else
+   hisShowModal ("../Faculty/SearchPerson.jsp?action=UMS-SRMHR_OPEN_PERSONBROWSER", 850, 400, addEmpDetails , window) ;
+
+   }
+
+
+addSelectedEmpItems = function () {
+	 
+		var empNo = dialogWin.returnedValue; 
+			
+		if (empNo == null) 	
+		{ return false ; }
+	
+    	addEmpNoRow(empNo)
+
+	}  
+	function addEmpNoRow(empNo)
+	{
+	   getJadeControl("hiddenEmpId").value=empNo;
+	   getJadeControl("action").value='UMS-SRMHR_OPEN_FACULTYBROWSER'
+	     document.forms[0].submit();
+}
+addEmpDetails = function () {
+	 
+		var personId = dialogWin.returnedValue; 
+		
+		if (personId == null) 	
+		{ return false ; }
+		else
+		{ 
+		 getJadeControl("action").value='UMS-SRMHR_SHOW_PERSON_SCREEN'
+		  getJadeControl("hiddenRowNo").value=personId;
+		   document.forms[0].submit();
+		  }
+	}
+
+var first_word;
+
+
+var littleWords = new Array("to", "in", "the", "of", "from", "as", "an", "for", "and", "but", "with", "vs.", "or", "by", "if", "on", "at");
+
+var allCaps = new Array("aba", "pdf", "html", "xml", "fcc", "nchica", "hipaa", "glb", "erisa", "ftc", "eeo", "edgar", "osha", "cobra", "eeoc", "irs", "lp", "sec", "u.s.", "uk", "ec", "cmbs", "epa");
+
+function changeCase(name,tabname) {
+	first_word = true;
+	var s = getJadeControl(name,tabname).value;
+	
+	var str = s.toLowerCase();
+	var str_temp = new Array();
+	str_temp = str.split(" ");
+	
+	for (var i = 0; i < str_temp.length; ++i) {
+		var pattern = /(^[\'\"]?)(\w)([\w]*)([\.\',:;]?)(.*)/;
+		var word = str_temp[i];
+		var result = pattern.exec(word);
+		if (result != null) {
+			str_temp[i] = toTitleCase(result, littleWords, allCaps);
+		}
+		first_word = getFirstWord(str_temp[i]);
+	}
+
+	var currLength = 0;
+	for (var i = 0; i < str_temp.length; i++) {
+		currLength += str_temp[i].length;
+	}
+	currLength += str_temp.length - 1;
+	
+	s = str_temp.join(" ");
+	getJadeControl(name,tabname).value = s;
+}
+function getFirstWord(word) {
+	var ret = ( word.charAt(word.length-1) == ":");
+	return ret;
+}
+
+function isInGroup(word, groupOfWords) {
+//	word = word.replace(/:/, "");
+	for (var i = 0; i < groupOfWords.length; ++i) {
+		if (groupOfWords[i] == word)
+			return true;
+	}
+	return false;
+}
+
+function getCase(word, littleWords, allCaps) {
+	if (isInGroup(word, littleWords)) {
+		return 1;	//return 1 if it is a little word;
+	}
+	if (isInGroup(word, allCaps)) {
+		return 2;	//return 2 if this is an allcaps word;
+	}
+	return 3;		//return 3 for all other words;
+}
+
+function toTitleCase(result, littleWords, allCaps) {
+	var word_temp, word_result;
+//	result[0] contains the entire match
+//	result[1] contains the (leading) ["'] (if any)
+//	result[2] contains the first letter
+//	result[3] contains the rest of the letters
+//	result[4] contains the trailing punctuation (if any)
+//	result[5] conains the trailing stuff and junk (if any)
+
+	word_temp = result[2] + result[3];
+	var word_case = getCase(word_temp, littleWords, allCaps);
+
+	switch (word_case) {
+		case 1:
+			if (first_word) {
+				first_word = false;
+				word_result = result[2].toUpperCase() + result[3];
+			} else {
+				word_result = word_temp;
+			}
+			break;
+		case 2:
+			word_result = word_temp.toUpperCase();
+			break;
+		case 3:
+			word_result = result[2].toUpperCase() + result[3];
+			break;
+	}
+
+	word_result = result[1] + word_result;
+	for (var i = 4; i < result.length; i++) {
+		word_result += result[i];
+	}
+
+	
+	return word_result;
+}
+function disableSearch()
+{
+if(getJadeControl("hidrollNo").value=="other")
+{
+	alert("Edit RollNo is only Possible from Edit Student Records");
+	return false;
+}
+return true;
+}
+function searchStudent()
+{
+if(disableSearch())
+	openRollNoBrowser('Student');
+	return false;
+}
+function showStudent()
+{
+if(disableSearch())
+	return checkRollNo();
+return false;
+}
+function disableEmpSearch()
+{
+if(getJadeControl("hiddenEmpNo").value=="other")
+{
+	alert("Edit EmpNo is only Possible from Edit Staff Records");
+	return false;
+}
+return true;
+}
+function searchStaff()
+{
+if(disableEmpSearch())
+	openEmpNoBrowser('Staff');
+}
+function showStaff()
+{
+if(disableEmpSearch())
+	return checkEmpNo();
+return false;
+}
+
+
+function CopyPermAddress()
+{
+	var checkPer=getJadeControl("checkboxPermAddr","addpa").checked;
+	var checkComm=getJadeControl("checkboxCommAddr","addpa").checked;
+	if(checkPer==true)
+	{
+	getJadeControl("checkboxCommAddr","addpa").disabled=true;
+	getJadeControl("txtLocAdd1","addpa").value=getJadeControl("txtPermAdd1","addpa").value;	
+	getJadeControl("txtLocAdd2","addpa").value=getJadeControl("txtPermAdd2","addpa").value;	
+	getJadeControl("txtLocCity","addpa").value=getJadeControl("txtPermCity","addpa").value;
+	getJadeControl("txtLocDist","addpa").value=getJadeControl("txtPermDist","addpa").value;	
+	getJadeControl("lstLocStateMaster","addpa").value=getJadeControl("lstPermStateMaster","addpa").value;	
+	getJadeControl("lstLocCountryMaster","addpa").value=getJadeControl("lstPermCountryMaster","addpa").value;	
+	getJadeControl("txtLocPin","addpa").value=getJadeControl("txtPermPin","addpa").value;	
+	getJadeControl("txtLocPh1","addpa").value=getJadeControl("txtPermPh1","addpa").value;	
+	getJadeControl("txtLocPh2","addpa").value=getJadeControl("txtPermPh2","addpa").value;	
+	getJadeControl("txtLocPh3","addpa").value=getJadeControl("txtPermPh3","addpa").value;	
+	}
+	else
+	{
+	getJadeControl("checkboxCommAddr","addpa").disabled=false;
+	getJadeControl("txtLocAdd1","addpa").value="";	
+	getJadeControl("txtLocAdd2","addpa").value="";	
+	getJadeControl("txtLocCity","addpa").value="";
+	getJadeControl("txtLocDist","addpa").value="";	
+	getJadeControl("lstLocStateMaster","addpa").value="0";	
+	getJadeControl("lstLocCountryMaster","addpa").value="0";	
+	getJadeControl("txtLocPin","addpa").value="";	
+	getJadeControl("txtLocPh1","addpa").value="";	
+	getJadeControl("txtLocPh2","addpa").value="";	
+	getJadeControl("txtLocPh3","addpa").value="";	
+	
+	}
+
+
+}
+function CopyCommAddress()
+{
+	var checkPer=getJadeControl("checkboxPermAddr","addpa").checked;
+	var checkComm=getJadeControl("checkboxCommAddr","addpa").checked;
+	if(checkComm==true)
+	{
+	getJadeControl("checkboxPermAddr","addpa").disabled=true;
+	getJadeControl("txtLocAdd1","addpa").value=getJadeControl("txtCommAdd1","addpa").value;	
+	getJadeControl("txtLocAdd2","addpa").value=getJadeControl("txtCommAdd2","addpa").value;	
+	getJadeControl("txtLocCity","addpa").value=getJadeControl("txtCommCity","addpa").value;
+	getJadeControl("txtLocDist","addpa").value=getJadeControl("txtCommDist","addpa").value;	
+	getJadeControl("lstLocStateMaster","addpa").value=getJadeControl("lstStateMaster","addpa").value;	
+	getJadeControl("lstLocCountryMaster","addpa").value=getJadeControl("lstCommCountryMaster","addpa").value;	
+	getJadeControl("txtLocPin","addpa").value=getJadeControl("txtCommPin","addpa").value;	
+	getJadeControl("txtLocPh1","addpa").value=getJadeControl("txtCommPh1","addpa").value;	
+	getJadeControl("txtLocPh2","addpa").value=getJadeControl("txtCommPh2","addpa").value;	
+	getJadeControl("txtLocPh3","addpa").value=getJadeControl("txtCommPh3","addpa").value;	
+	}
+	else
+	{
+	getJadeControl("checkboxPermAddr","addpa").disabled=false;
+	getJadeControl("txtLocAdd1","addpa").value="";	
+	getJadeControl("txtLocAdd2","addpa").value="";	
+	getJadeControl("txtLocCity","addpa").value="";
+	getJadeControl("txtLocDist","addpa").value="";	
+	getJadeControl("lstLocStateMaster","addpa").value="0";	
+	getJadeControl("lstLocCountryMaster","addpa").value="0";	
+	getJadeControl("txtLocPin","addpa").value="";	
+	getJadeControl("txtLocPh1","addpa").value="";	
+	getJadeControl("txtLocPh2","addpa").value="";	
+	getJadeControl("txtLocPh3","addpa").value="";	
+	
+	}
+
+
+}
+function setUserLogin()
+{
+   if(emailValid())
+   		setLoginFromEmail();
+}
+function setLoginFromEmail()
+{
+
+ var Email=getJadeControl("txtEmail").value;
+ if(Email=="")
+ {
+ getJadeControl("txtUsrLogin").value=getJadeControl("txtEmail").value;
+  }
+else
+{
+getJadeControl("txtUsrLogin").value=Email.substring(0,Email.lastIndexOf("@"));
+}
+}
+function emailValid()
+	{
+			
+			//var formobj=document.AddEmp;
+			var email=getJadeControl("txtEmail").value;//alert(email1);	
+			iIndexAt = email.indexOf('@');  //getting the position of '@'
+			iIndexDot = email.indexOf('.');  //getting the position of '.'
+			afterDot =''; //for getting the char after '.'
+			afterAt =''; //for getting the char after '@'
+			var extChar = "`~!#$%^/\?*()=+{[}];:',";
+			len=email.length;
+			var numicyesno=getJadeControl("numericUsrLogin").value;
+			
+			if(numicyesno=='No')
+			{
+			
+			  if(email=='')
+			  {
+				alert("Please enter email");
+				getJadeControl("txtEmail").focus();
+				return false;
+			}
+				for(i=0;i<len;i++)
+				if(extChar.indexOf(email.charAt(i))!=-1)
+				{
+					alert("The character "+email.charAt(i)+" is not alowed in Email Address");
+					getJadeControl("txtEmail").focus();
+					flag=1;
+					return false;
+				}
+				if(iIndexAt==-1)
+				{	alert("Invalid Email Address");
+					getJadeControl("txtEmail").focus();
+					flag=1;
+					return false;
+				}
+	
+				if(email.charAt(0)=='@'||email.charAt(0)=='.')
+				{	alert("Invalid Email Address");
+					getJadeControl("txtEmail").focus();
+					return false;
+				}
+				if(iIndexDot==-1)
+				{	alert("Invalid Email Address");
+				getJadeControl("txtEmail").focus();
+					flag=1;
+					return false;
+				}
+				afterDot = email.charAt(iIndexDot+1)
+				if((afterDot=="")||(afterDot==" "))
+				{
+					alert(" Invalid Email Address ");
+				getJadeControl("txtEmail").focus();
+					flag=1;
+					return false;
+				}
+				afterAt = email.charAt(iIndexAt+1)
+				if((afterAt==".")||(afterAt==" "))
+				{
+					alert(" Invalid Email Address ");
+					getJadeControl("txtEmail").focus();
+					flag=1;
+					return false;
+				}
+				for(i=iIndexAt+1;i<len;i++)
+				{
+					if(email.charAt(i)=='@'){
+						alert("The character '@' must not repeat")
+					getJadeControl("txtEmail").focus();
+						flag=1;
+						return false;
+					}
+				}
+				//i=iIndexDot+1
+				//if(email.charAt(i)=='.')
+				//{
+				//	alert("The charecter '.' must not repeat")
+				
+				//	flag=1;
+			//		return false;
+			//	}
+			//	return check();
+			}//end if.
+			return true;		
+}	
+function chkUserLogin()
+{
+ var usrLogin=getJadeControl("txtUsrLogin").value;
+ var numicyesno=getJadeControl("numericUsrLogin").value;
+ if(usrLogin=='')
+ {
+ alert("Please Enter User Login");
+ getJadeControl("txtUsrLogin").focus();
+ return false;
+ }
+ else
+ {
+ if(numicyesno=='No'){
+ 	if(!isNaN(usrLogin))
+ 	{
+ 	 alert("Numeric Value Can't be Given as  User Login");
+ 	getJadeControl("txtUsrLogin").focus();
+ 	return false;
+ 	}
+ 	else
+ 	 return true;
+ 	}
+ 	else
+ 	 return true;
+ }
+}
+function openAddStudentQualificationPopup(fileName)
+{
+	hisShowModal (fileName, 900, 600, addStudentQualification , window) ;
+	return false;
+} 
+addStudentQualification = function () {
+	var approval = dialogWin.returnedValue; 
+	if (approval == null) 	
+		{ return false ; }
+	} 
+
+function checkHostel()
+{	
+	var val = 0;
+	if(getJadeControl("radiogrpHostellite","adpsndet")!=null)
+		{
+			for( i = 0; i < getJadeControl("radiogrpHostellite","adpsndet").length; i++ )
+			{
+				if( getJadeControl("radiogrpHostellite","adpsndet")[i].checked == true )
+				val = getJadeControl("radiogrpHostellite","adpsndet")[i].value;
+				
+				//Code modified by sowmya for 3.0.34 
+				if(val=='Y')
+				{
+					getJadeControl("txteditHostelName","adpsndet").disabled=false;
+					getJadeControl("txteditRoomNo","adpsndet").disabled=false;
+					
+					for( i = 0; i < getJadeControl("radiogrpBusFacility","adpsndet").length; i++ )			 
+						getJadeControl("radiogrpBusFacility","adpsndet")[i].disabled=true;			
+					getJadeControl("selectBoardingFrom","adpsndet").disabled=true;
+					getJadeControl("txteditDistance","adpsndet").disabled=true;
+					
+				}
+				else
+				{
+					getJadeControl("txteditHostelName","adpsndet").disabled=true;
+					getJadeControl("txteditRoomNo","adpsndet").disabled=true;
+						
+					for( i = 0; i < getJadeControl("radiogrpBusFacility","adpsndet").length; i++ )		
+						getJadeControl("radiogrpBusFacility","adpsndet")[i].disabled=false;				
+					getJadeControl("selectBoardingFrom","adpsndet").disabled=false;
+					getJadeControl("txteditDistance","adpsndet").disabled=false;
+					
+				}
+			}
+	}
+}
+
+function checkValueForAttribute(actionValue)
+{
+	
+	 var atrbmstrname = getJadeControl("selectAttribute","addAttribute").value;
+	var atrbmstrvalue = getJadeControl("selectVal","addAttribute").value;
+	var atrbmstrdesc = getJadeControl("txteditDesc","addAttribute").value;
+
+
+	if(atrbmstrname == "0" )
+	{
+		alert("Please select Attribute");
+		getJadeControl("selectAttribute","addAttribute").focus();
+		return;
+	}
+	if(atrbmstrvalue =="-1" || !hasWhiteSpace(atrbmstrvalue || !isNaN(atrbmstrvalue)))
+	{
+		alert("Please Enter Attribute Value");
+		getJadeControl("selectVal","addAttribute").value = "";
+		getJadeControl("selectVal","addAttribute").focus();
+		return;
+	}
+	/*if(fileName!=null ) {
+      if(getJadeControl("hiddenAttrValue","addAttribute").value=="student"){
+    	 var enrollmentRollNo = getJadeControl("txtRollNo").value;
+    	 document.forms[0].enctype= "multipart/form-data" ;
+		 document.forms[0].action="../../FileUploadServlet?action=UMS-SRM_UPLOADDOCUMENT_ADDATTRIBUTE_SCREEN&enrollmentRollNo="+enrollmentRollNo;
+		 // document.forms[0].submit();
+		
+	   }
+    
+
+      else if(getJadeControl("hiddenAttrValue","addAttribute").value=="faculty"){	
+   	     var facultyId = getJadeControl("txteditEmpNo").value;
+		 document.forms[0].action="../../FileUploadServlet?action=UMS-SRM_UPLOADDOCUMENT_ADDATTRIBUTE_FACULTYSCREEN&facultyId="+facultyId;
+		 document.forms[0].submit();
+		
+	  }
+   }*/
+	
+	formSubmit(actionValue);	
+}
+function formSubmit(actionValue)
+{
+	getJadeControl("action").value=actionValue;
+	document.forms[0].submit();
+}
+
+function upLoadFileForAttribute(){
+	
+	var fileName = getJadeControl("document","addAttribute").value;
+	 var enrollmentRollNo = getJadeControl("txtRollNo").value;
+	if(fileName == "" || !hasWhiteSpace(fileName)) {
+		alert("Please Select File");
+		getJadeControl("document","addAttribute").focus();
+		return;
+	}
+	else{				
+			
+	document.forms[0].action="../../FileUploadServlet?action=UMS-SRM_UPLOADDOCUMENT_ADDATTRIBUTE_SCREEN&enrollmentRollNo="+enrollmentRollNo;
+	
+	document.forms[0].submit();
+	}
+}
+
+function openPopup(fileName)
+{
+    hisShowModal (fileName, 550, 550, addSelectedItems , window) ;
+    return false;
+}
+
+addSelectedItems = function () {
+    var copy = dialogWin.returnedValue; 
+    if (copy == null)   
+        { 
+    	return false ; }
+     document.forms[0].action=copy;
+    document.forms[0].submit();
+    
+}
+
+function checkEmailValid()
+{
+	var personMail=getJadeControl("texteditEmail","adpsndet").value
+	iIndexAt = personMail.indexOf('@');  //getting the position of '@'
+	iIndexDot = personMail.indexOf('.');  //getting the position of '.'
+	afterDot =''; //for getting the char after '.'
+	afterAt =''; //for getting the char after '@'
+	var extChar = "`~!#$%^/\?*()= +{[}];:',";
+	len=personMail.length;
+	if(len!=0){
+		for(i=0;i<len;i++)
+		if(extChar.indexOf(personMail.charAt(i))!=-1)
+		{
+			alert("The character ' "+personMail.charAt(i)+" ' is not allowed in Email Address");
+			getJadeControl("texteditEmail","adpsndet").focus();
+		    return false;
+		}
+		if(iIndexAt==-1)
+		{	
+			alert("Invalid Email Address");
+		    getJadeControl("texteditEmail","adpsndet").focus();
+	        return false;
+		}
+
+		if(personMail.charAt(0)=='@'||personMail.charAt(0)=='.')
+		{	
+			alert("Invalid Email Address");
+		    getJadeControl("texteditEmail","adpsndet").focus();
+	        return false;
+		}
+		if(iIndexDot==-1)
+		{	
+			alert("Invalid Email Address");
+		    getJadeControl("texteditEmail","adpsndet").focus();
+	        return false;
+		}
+		afterDot = personMail.charAt(iIndexDot+1);
+		if((afterDot=="")||(afterDot==" "))
+		{
+			alert(" Invalid Email Address ");
+			getJadeControl("texteditEmail","adpsndet").focus();
+		    return false;
+		}
+		afterAt = personMail.charAt(iIndexAt+1);
+		if((afterAt==".")||(afterAt==" "))
+		{
+			alert(" Invalid Email Address ");
+			getJadeControl("texteditEmail","adpsndet").focus();
+		    return false;
+		}
+		for(i=iIndexAt+1;i<len;i++)
+		{
+			if(personMail.charAt(i)=='@'){
+				alert("The character '@' must not repeat");
+				getJadeControl("texteditEmail","adpsndet").focus();
+			    return false;
+			}
+		}
+	}
+	return true;		
+}
+function checkOfficialEmailValid()
+{
+	var officialMail=getJadeControl("texteditOfficialEmail","adpsndet").value
+	iIndexAt = officialMail.indexOf('@');  //getting the position of '@'
+	iIndexDot = officialMail.indexOf('.');  //getting the position of '.'
+	afterDot =''; //for getting the char after '.'
+	afterAt =''; //for getting the char after '@'
+	var extChar = "`~!#$%^/\?*()=+{[}];:',";
+	len=officialMail.length;
+	if(len!=0){
+		for(i=0;i<len;i++)
+		if(extChar.indexOf(officialMail.charAt(i))!=-1)
+		{
+			alert("The character "+officialMail.charAt(i)+" is not allowed in Email Address");
+			getJadeControl("texteditOfficialEmail","adpsndet").focus();
+		    return false;
+		}
+		if(iIndexAt==-1)
+		{	alert("Invalid Email Address");
+		     getJadeControl("texteditOfficialEmail","adpsndet").focus();
+	        return false;
+		}
+
+		if(officialMail.charAt(0)=='@'||officialMail.charAt(0)=='.')
+		{	alert("Invalid Email Address");
+		    getJadeControl("texteditOfficialEmail","adpsndet").focus();
+	        return false;
+		}
+		if(iIndexDot==-1)
+		{	alert("Invalid Email Address");
+		    getJadeControl("texteditOfficialEmail","adpsndet").focus();
+	        return false;
+		}
+		afterDot = officialMail.charAt(iIndexDot+1);
+		if((afterDot=="")||(afterDot==" "))
+		{
+			alert(" Invalid Email Address ");
+			getJadeControl("texteditOfficialEmail","adpsndet").focus();
+		    return false;
+		}
+		afterAt = officialMail.charAt(iIndexAt+1);
+		if((afterAt==".")||(afterAt==" "))
+		{
+			alert(" Invalid Email Address ");
+			getJadeControl("texteditOfficialEmail","adpsndet").focus();
+		    return false;
+		}
+		for(i=iIndexAt+1;i<len;i++)
+		{
+			if(officialMail.charAt(i)=='@'){
+				alert("The character '@' must not repeat");
+				getJadeControl("texteditOfficialEmail","adpsndet").focus();
+			    return false;
+			}
+		}
+	}
+	return true;		
+}

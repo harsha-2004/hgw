@@ -1,0 +1,50 @@
+import resolve from './path.js';
+
+addStylesheetsToPage();
+
+/**
+ * Get all stylesheets and add them to HEAD
+ */
+function addStylesheetsToPage() {
+	const head = document.querySelector("head");
+
+	stylesheets().forEach(s => addStylesheet(s, head));
+}
+
+/**
+ * Array of all necessary stylesheets
+ */
+function stylesheets() {
+	return [
+		{ href: "/css/gridstack.min.css" },
+		{ href: "/assets/global/plugins/bootstrap/css/bootstrap.min.css" },
+		{ href: "/css/components-rounded.min.css", id: "style_components" },
+		{ href: "/css/select2-bootstrap.css" },
+		{ href: "/css/jquery.dataTables.min.css" },
+		{ href: "/assets/admin/layout/css/themes/darkblue.css", id: "style_color" },
+		{ href: "/assets/admin/layout/css/layout.css" },
+		{ href: "/assets/global/plugins/jquery-ui/jquery-ui.min.css" },
+		{ href: "/css/select2.css" },
+		{ href: "/assets/global/css/plugins.css" },
+		{ href: "/css/custom.css" },
+		{ href: "/css/custom-login.css" },
+		{ href: "/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" },
+		{ href: "/css/jquery.toolbar.css" }
+	];
+}
+
+/**
+ * Adds stylesheet to HEAD
+ * @param {Array} s stylesheet
+ * @param {HTMLElement} head the HEAD element
+ */
+function addStylesheet(s, head) {
+	const link = document.createElement("link");
+
+	link.setAttribute("href", resolve(s.href));
+	link.setAttribute("rel", "stylesheet");
+	link.setAttribute("type", "text/css");
+	s.id && link.setAttribute("id", s.id);
+
+	head.appendChild(link);
+}

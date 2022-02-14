@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AUMS &#8211; Amrita Vidya</title>
+
+    <meta name="_csrf" content=""/>
+    <meta name="_csrf_header" content=""/>
+
+
+    
+    <link rel="stylesheet" href="/cas/css/cas.css" />
+    <link rel="icon" href="/cas/favicon.ico" type="image/x-icon" />
+
+</head>
+<body id="cas">
+
+<div id="container">
+  <header>
+    <p id="logo" title="go to Aums home page">AUMS</p>
+    <h1>Amrita Vidya (AUMS)</h1>
+  </header>
+  <div  class="content" id="content">
+
+
+
+
+<div id="cookiesDisabled" class="errors" style="display:none;">
+    <h2>Browser cookies disabled</h2>
+    <p>Your browser does not accept cookies. Single Sign On WILL NOT WORK.</p>
+</div>
+
+
+
+    
+    
+    
+
+    
+        
+        
+    
+
+      <!-- <div id="serviceui" class="serviceinfo">
+        <table>
+            <tr>
+                <td><img src="images/webapp.png"></td>
+                <td id="servicedesc">
+                    <h1>HTTPS and IMAPS</h1>
+                    <p>This service definition authorized all application urls that support HTTPS and IMAPS protocols.</p>
+                </td>
+            </tr>
+        </table>
+    </div>   -->
+    <p/>
+
+
+<div class="box" id="login">
+    <form id="fm1" action="/cas/login?service=https%3A%2F%2Faumscn.amrita.edu%2Faums%2FFileUploadServlet%3Faction%3DUMS-SRMHR_SHOW_PERSON_PHOTO%26personId%3D12E8D92A5C70EA0EE60723814E0955BA064E5E16DEBE83B932391F9140FADE1F" method="post">
+
+        
+
+        <h2>Sign In</h2>
+
+        <section class="row">
+            <!-- <label for="username"><span class="accesskey">U</span>sername:</label> -->
+            
+                
+                
+                    
+                    <input class="form-control form-control-solid placeholder-no-fix" cssClass="required" cssErrorClass="error" id="username" type="text" accesskey="u" path="username" autocomplete="off" htmlEscape="true" placeholder="Username" name="username"/>
+                
+            
+        </section>
+        
+
+        <section class="row">
+             <!--<label for="password"><span class="accesskey">P</span>assword:</label> -->
+                
+                
+                  <input class="form-control form-control-solid placeholder-no-fix" cssClass="required" cssErrorClass="error" type="password" id="password" accesskey=""  path="password"  autocomplete="off" htmlEscape="true" placeholder="Password" name="password"/>
+
+            <!-- 
+            <input id="password" name="password" class="required" accesskey="p" type="password" value="" autocomplete="off"/> -->
+            <span id="capslock-on" style="display:none;"><p><img src="images/warning.png" valign="top"> CAPSLOCK key is turned on!</p></span>
+        </section>
+
+        <!--
+        <section class="row check">
+            <p>
+                <input id="warn" name="warn" value="true" tabindex="3" accesskey="w" type="checkbox" />
+                <label for="warn"><span class="accesskey">W</span>arn me before logging me into other sites.</label>
+                <br/>
+                <input id="publicWorkstation" name="publicWorkstation" value="false" tabindex="4" type="checkbox" />
+                <label for="publicWorkstation">I am at a public workstation.</label>
+                <br/>
+                <input type="checkbox" name="rememberMe" id="rememberMe" value="true" tabindex="5"  />
+                <label for="rememberMe">Remember Me</label>
+            </p>
+        </section>
+        -->
+
+        <section class="row btn-row">
+           
+            <input type="hidden" name="execution" value="42fe76a3-c493-4931-afc5-61c2dcf159b5_ZXlKaGJHY2lPaUpJVXpVeE1pSjkuTlRSamJGZEtSVVExYkd3dmJVTmhkbTFwV1d4cWRERTROR3A0Y0c1eGMxbFNTVkV4Um1ORmMwRjNaemhGV0RCaFoyWldTSEpMVTI5aFlUaHpiMDE2Um01b1FXNVlUVVJQVG1kMVozRTNTVVoxYW1nMFpERkVOMlJCYVhKblozaEhla2hEZFU5T1ZEaGxPRVZwT0hWS1dVa3ZkbGRSY3pnNFdsRnhTVTlIZW5ab2EwNDVkVVJoYW0xdmRtUkZOVlpNU0ZsSFVWZFlXVVZ5UnpreFNVNWlLM0pETm01dVoxZzJlR0pKUVdkSkswVkRkWFZuVGtOek9GTk5hV0V3ZFRrNE16aEVSRlJYYkdwTU5HWlFiVTAzYkRkWVNIWkRVVVJDTldkV00xaHVkM0lyY1dkSGRVSnNlVFpDVDFONGFraHdSWFY2Vm1aMk16SjFlVzFIVmxab1kzcENVWEV4YVV4dlMxWlVUVmt6YkN0cFNGSTJXbUZKUlZOdGJFVllTbHA0Ym5wRGFDdEJXRTVIVUVOV1FuYzBVMDFXYlRKNk9WcEpTelZyVFVGWGQxbFJXRW8wTTFvcmNEa3JVbWd3UzNkbmNtcEtjME15WkZoMVZrZDBjVVozZGpSbFlXOVRLMWRRTTNjNFppOXdRbEZpVVhvMVJtNURRbEZYUzJaalQyUnhUbEIxYjBkT2JtRndjVXBNWkRKemJucFlkMUJHTW5KWFoxQXJRMnRzVFhWSmFXWnNVeXRVYWk4M1lVNXJNbnBoZWpKVlpDdGxlbE5uUTBSc04wOU1kV1E0UldoamRYRndlVkl2Y21oM2ExUlNLelJNYkZKVk1YRnFRazg1ZDNWWllURkxZemxrYmpCUGJuWXZkVXRMTTJKSVF5dFZaRk40VTA5UGJWRndRMnhSTWpkbWFVeGpTV2cyYTNKSFYwZDZjV1J1VVdKbWRESndLekJYVDFwallVbFBlVmQwZVN0eU9YUkpla3RaT0doR2MxZHpObWhpVG0xWVp6TmlZakZGTWtWd09ETjFTMWxaVEVaMFRUTlpTbFZJTWxwVVJuTk9ZblY1UlVscFlsSm9Uemh4YTNBMGVGTXdkMkpJWTJObmJFTnNka00yYm1KNk1uSlhiRTl3WWxGbk5IbFZNQ3M0Umk4MlJGQTRRM1JtYTBGbVpHbEZVME5SYUhOWU9GVmFOVWhCZDNka1FuZFZZVFJpZG1WNFVuVnpVR3RVS3pCQ1NGcHFZa2RZUjFOMmF6VkdRVGxNV1ZSQlZWaGFaMjl1ZEdsbmJWbHNMM3BqU2xOaE1qTjRlbTE1WjBkWk0zb3ZaRXd5YkdaYVoyMWpZMGxUUkRoRVQzcFNVRlFyTVZreFVqTkNSMGxrWVdwd1kwcHJUMUFyZGpKcFVuSlVlU3RhUVd4cE9XZE5UelkzWWtGWU1ERk1kRXhLZUdSeFIwWlRUMUJFYm5SSVkwVkxiazVhVDJjeVNrOHZWVGREZWtSR1kxSlFZak5XZW14QlJrWk9aakZTYUZkM2FEWjZOREpPVkRBM1JYb3dTVFpOVDFaV1dsaHBUVkp0Y1dJd05WQnBLeTlhU21RMlNuQndWbXBHZFZGdmNrVnVaREY2VjJwVFQwSXpTVXBxVVVNclF6SmhSRWhvYm1oYVQzSkZZWGhRVUhWRGNsTjBOMEZPVXpVMWVGSXpValJuWWtVMlFVbHhTVkJMTjFGSmF6WkhNMFZPU1hSTlpGaHZaaXQxVUM5a1lWVmxXVVpOTVhGMFpuWjJSbmhWSzBaYUwzSTNSMUJ4ZUVGRFIyOXNNRWhXVVdod05rRkJjVkZJZDJGelZrcDFRbmRaSzNoamFsaDBaMWd5WTNscmFVWjViamRqTkZoMk0wMWhXa2hoYkRkclJVSmpabFJUT1RKQ1ZFMTRhbGhqZDJ4R04wOXJZblpOYVdSalZEbHlVVzV4YW5wb1lsQXdaMUpvTml0cWJsbE5ZM2RJV1d0WGEwTktTMGhHZEVZNFoxSlNjVmhrYldoYVR5OXJlWGhUWkZSYVkzcFVaREZMU1dkUWNXdFFiMXBQVkdaNWQzZGpNMFJOVEU0NE1uTmhkVmwzVGpOTFNFMWtZa2R6Wm5GeFZ6UnNSVEJwUTBSVVRGZzRibXhFUm05V2JVWnZUR1E0ZFdWMVoySldNRzk2YjJVeFowdGpjRU51VkNzeVRrMHJPV1UwVWpaQlRuQTRhREJTVWtwcU16SnhZbkY1V0U5cWNIWlFSSE5rWmxFMWF6SnFNa3hHWTNWeWN6TllibTVLVDJ4SWNDOU5NV2xVU0Zka1dHcGllbmd3VG1WelZXaDVZMFZwTUN0RFJYTnRSbFp5VTBNMmVFWk9iRUpSTmxWQlJGZDRPRmRGWlRJclIxaHhSR1ZYZDFSbmQwdEdiVUZEV1dWd2EzZzBlRFZ1WlhCWldtcEdVbHBzY1VKeVdVZHBNWHBvTHpKV1ZVcGFabEF2U0ZwdE1sQmtPR2hhTVhsUlNsTnBiVkUyT1hWaWRVRXhaM0Y1YzFVd09HSjRWblpCVnpCMWJVTkllRTkwWlVsMFRISnZNbmd3ZGxnMkswRmhiRzVJY1hSUlVubHpZMHR3UlRWRWJGbHNSekpHZEZCV2RXMUJUbWN6YVRkcmEybFpTMFF6UmxkelZVdDNWVE52ZFM4NWIyVkZTMEZST1c1VmVVdHlUbEJLUVRSblVuZHFiRGxXWkRkMmQyRkdNVVZwVHpnNFdYcENNM1Z1VTBSd2ExaFBjamhUU2preU9UQTNSbVY1Ym5oNWIyMXpTemxtVnpoTGIwUkVUVnBaYjBNM05VbG1SV1F4ZFZKUFZHaHZiSGM0TTJ4eWVITXpVR0pSYm1Ob1FUaFpNRE5sV1ZsbEsxQllhbUpuUzNOQmVFNU5PVTVTUlV0MVNFc3dkMUphYkVjNFZHdHdOR1poYmk5WWVtZEtPSEpsWVRGdWNHb3pNMGxaVTB3d1FpdG1aMjlwYm5Cc2RUSlFVRTVQZEZwbGEwOW5VblYzVlc5M1dXbEJkemRtZEVaVksydHpiMjVWVGpaNVNrVklVbWh1VlZaNU15dENaV3RXT1dWaVYzcGhkblIzTjA5R1pETXhZbVJQZDIxUWNHMVhXRWRQTnpGUlpqUm5XbXd6ZEdKWlRuUk5NREkzTWpnMlRITkNkVXRYWW14dGNYTnhjVzF3Y0dwdGQyWk5aVFZqWVVaT1NsUkhjbVpITm5GcmRHRTBPR2QwTHl0SldEVllORU5KU1UxWFltczBRbE5GZW5acWFFcFRhM051THk5MGFqQkZTazlaWmtOQlkzUTBjRmRZVW5sbVYzTmlkbmhZYzJ4cWJsVnlhV1V2VERWd1oxUkRNSHA1VGs1TGJqZE9NRXBYT0hSR1R6bGliRzg0YWtoVVZrcEdZMlJtY1hkUlVEWmxhR3Q1UW0xWU5XZDJNR1ZRV0RSMUswVnJVSHAxYzIxdGNEQjVkVzhyY2pSTlJqUnVVazQxUXpOWFRXVnNUU3R0UlhaaWQyOUJXVVZYTjJKaVdHdDNhM0pqVTJkbFRFVldkbGhRVGpWUVNIZDRRa2hKVVZKRVFYQjBhVU5rUkZBd1pteE5Ua1prSzA5VE5GcE5VR3BRT1d4NmFVZ3lUVFZvV25Ob1RrczBNbEJZU0RaVGNURlRhbTVZVDA1MmJrUkRWR1JaVERCUEszZDNTMjQwTXpGc09XcE9kekUzZERVemFEVnJVakpOTTNCMmNHUTBPVGRCY1hwV2ExaHBWazFCUzJKc1VrdzRSRmgzTUVOME9XNHJjVWRQYkZGdFdpOURUVEJaU0RGQ2JrNUhRV0Z5V25oVlkwY3pjbFpKYmxaclIwRklUVFV5V0ZSaVRYTTJZMHRYU3k5NlZYRXlhak14TVZBd2VVaFRZVkZZY0dGeFZpOVpWRmxXYlhoWFRXa3hZbVl4UjJReFVXczNhR1p0Tm5nNE5taEtVVUpxTUd0M1VHaHFNVGx6ZDNNMVREWTRWMnhCZDNvclMyNWhibWRuVkVaaGVVVjFNRmd6WVROWFJqTTJUWFJGYTJvMlFWVTFkVmhqUjA1aWIweGxObFZETDFSWGVVSk1kelZYVnk5elVETlJMMk5hUmpOVVdIVXlWbGhvYkhKamRHeHhWblZLWTNSSFpuRkVSVGhUZHpaM1owUjJUR3d5VlRaWVQwRlZWMlJxVWxKelJrSlJSMUpVVEVKV0wyNWpOM1F2ZDFWNVpsQkRURlpaVTJacWVWb3dOVk5zVHpWM01YQlNSMGt4V2sxRmIxZFFaV2szVWtwR2N6Um5LMjlEYlhadVUyTkxaMnRrTmxWR2JsSkJkbkJ5U0ZSNlZtZzJPRzl5V0dkTU5scE1RVmN4TkRnNE4wZzNkek5hU2t4NFpTOTRjV1p0WTB0elZYTjNjemxzYm14TlNqbFVhM0pKU1dGRlduWm5OMHRXU1RSdFppdFFlSE00YURCT2RsTlBhV0pRYVVOb1JFbzNjMUlyWTB4R2RubzBkRVZuV0dodFRWbFVOV2hWVkROc1dGcHdaVWR1UVdGMWVtMW1WU3RQTDBKQ1dYWnJkM0I0ZDA0M1oxTlVlRXBRWTJnelIwTTFjRFl5UTJsaWJXUnlPVTFNUVVSdE4zUjFhblUyYUhKYVFpOC4tMXdSSUhydTdFU3FPNmtYOE5UOUllZUtZaVRqMG85LXBqckk3ZjhFREdIandxZ0l4T0JDYURMaUI0RnNkbGtqOC1Pb1ItYlR0Ukd4cEdZUm1rNzFhdw==" />
+            <input type="hidden" name="_eventId" value="submit" />
+
+            <input class="btn-submit" name="submit" accesskey="l" value="LOGIN" tabindex="6" type="submit" />
+             <!-- <input class="btn-reset" name="reset" accesskey="c" value="CLEAR" tabindex="7" type="reset" /> -->
+             <a href="/opac/biblio/opacSearch?searchYN=N" target="_blank">OPAC Search</a>
+             <div><a href="https://aumscn.amrita.edu/aums/ForgotPassword.jsp" >Can't access your account?</a></div>
+
+        </section>
+    </form>
+</div>
+
+<div id="sidebar">
+    <div class="sidebar-content">
+        <!--   <p>For security reasons, please <a href="logout">log out</a> and exit your web browser when you are done accessing services that require authentication!</p> -->
+
+        
+
+        <div id="list-languages">
+            
+            
+            
+
+           
+
+            
+                
+                
+                    
+                    <ul>
+                      
+                   
+                    </ul>
+                
+            
+
+<!-- log_inner_links -->
+        </div>
+    </div>
+</div>
+
+
+
+</div> <!-- END #content -->
+
+<footer>
+  <div id="copyright" class="container">
+    <p>Copyright &copy; 2021  Amrita Technologies. </p>
+       <!-- <p>Powered by <a href="http://www.apereo.org/cas">
+            Apereo Central Authentication Service 4.2.7</a>
+            2020-09-15T10:26:54.000+05:30</p>-->
+  </div>
+</footer>
+
+</div> <!-- END #container -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script>
+
+<script type="text/javascript" src="/cas/js/cas.js"></script>
+
+</body>
+</html>
+
+

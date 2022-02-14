@@ -1,0 +1,640 @@
+
+/////////////////////
+//@Name 	- AutoComplete.js
+//@Author 	- Ganesh
+//@Date 	- 2006-06-06
+/////////////////////
+
+//================= Declarations =============//
+
+
+keyFlag=0;		//variable to flag tab and down key press events
+srcText  = null ;
+srcId = null ;
+srcOptions = null ; // srcOptions will have the data populated --thej
+isIE = false ;
+textStr = "";
+
+var keyArray;  //stores the key values
+var valArray;  //stores the values corresponding to keys
+
+
+if (navigator.product == "Gecko")
+{
+	isIE = false ;
+}
+else
+{
+	isIE = true ;
+}
+
+
+//================= Utility functions =================
+
+function createPopup()
+{
+	if(! getElement("showdata"))
+	{	   	
+	   var divObj = document.createElement('div');	
+	   divObj.id = "showdata";
+	   divObj.style.position = "absolute";
+	   divObj.style.zIndex=100;
+	   document.forms[0].appendChild(divObj);	   
+	}
+}
+function showMouseEvent(){
+	//getdata();
+	//hidePopup();
+	//alert(getComboText());
+	//alert(getComboTextKey());
+}
+
+function getDiv()
+{
+	if(! getElement("showdata"))
+	{
+		createPopup();
+	}
+	if( getCombo() ){
+		addEvent(getCombo(),"mousedown",showMouseEvent);	
+	}
+	return getElement("showdata");
+} 
+
+
+function getElement(elem)  //function to get elements in dcoument based on id.
+{
+	return document.getElementById(elem);
+}
+
+function getCombo()
+{
+	return 	document.forms[0].selcat ;
+}
+
+function getComboText()
+{ 
+	var index1 = getCombo().selectedIndex;	 
+	return getCombo().options[index1].text;
+}
+
+function getComboTextKey()
+{
+	var index1 = getCombo().selectedIndex;
+	return getCombo().options[index1].value;
+}
+
+function comboSelected(valString)
+{	 
+	setTimeout("setSelectedValues()",50);	
+}
+
+function setSelectedValues () {
+	getSrcTextField().value =  getComboText();
+	getSrcIdField().value = getComboTextKey();
+	autoCompleteSelected();
+}	
+
+function getSrcTextField()
+{
+	return srcText ;
+}
+
+function getSrcIdField()
+{
+	return srcId ;
+}
+
+function getSrcOptionsField()
+{
+	return srcOptions ;
+}
+
+function getElementY(element)
+{
+	var targetTop = 0;
+	
+	if (element.offsetParent) 
+	{
+		while (element.offsetParent)
+		{
+      			targetTop += element.offsetTop;
+      			element = element.offsetParent;
+    		}
+  	}
+  	else if(element.y)
+  	{
+    		targetTop += element.y;
+  	}
+	
+	return targetTop;
+}
+
+function getElementX(element)
+{
+	var targetLeft = 0;
+  	
+  	if (element.offsetParent)
+  	{
+    		while(element.offsetParent)
+    		{
+      			targetLeft += element.offsetLeft;
+      			element = element.offsetParent;
+    		}	
+  	} 
+  	else if(element.x)
+  	{
+    		targetLeft += element.yx;
+  	}
+  	
+  	return targetLeft;
+}
+
+function placeDiv()  //place the popup in the document.
+{
+
+	var maxHeight;
+	
+	if (isIE)
+	{
+      		maxHeight = 300;
+    	}
+    	else
+    	{
+      		maxHeight = window.outerHeight/3;
+    	}  
+    	
+        var textObj = getSrcTextField () ;
+        getDiv().style.height = maxHeight + "px";	
+        getDiv().style.top = (getElementY( textObj ) + textObj.offsetHeight+2) + "px"; 
+        getDiv().style.left = getElementX( textObj ) + "px";
+        getDiv().style.zIndex=100; 
+        getDiv().style.visibility="hidden" ;
+        addEvent(getSrcTextField(),"blur",textFieldChanged);
+}
+function textFieldChanged(){
+	if( getElement("showdata").style.visibility=="hidden" ){
+		//alert("");
+	}
+}
+
+function addEvent(obj,event_name,func_name){
+	if (obj.attachEvent){
+		obj.attachEvent("on"+event_name, func_name);
+	}else if(obj.addEventListener){
+		obj.addEventListener(event_name,func_name,true);
+	}else{
+		obj["on"+event_name] = func_name;
+	}
+}
+
+function splitDataString(stringValue,symbol)
+{		
+	return stringValue.split(symbol);
+}	
+
+function stringRTtrim()
+{
+    while(''+ getSrcTextString().value.charAt(getSrcTextString().value.length-1)==' ')
+    {
+       getSrcTextString().value=getSrcTextString().value.substring(0,this.value.length-1);
+    }   
+}
+
+function findMatch()
+{
+   var keyWord = getSrcTextField().value;
+   var arr = new Array();
+   var j = 0;
+   
+   if(valArray.length > 0)
+   {
+   	for(i=0; i<valArray.length; i++)
+   	{
+   	   if(keyWord.length <= valArray[i].length)
+   	   {
+   	      if(keyWord.toLowerCase() == valArray[i].substr(0,keyWord.length).toLowerCase())
+   	      {
+   	         arr[j] = keyArray[i] +"@" + valArray[i];
+   	         j++;
+   	      }
+   	   }  
+   	}   
+   }
+   else
+   {
+   	alert("No data in the datastore");
+   }
+   
+   return arr;
+}
+
+function findExactMatch()
+{
+
+   var retArr = "";
+   
+   if(valArray.length > 0)
+   {
+        var keyWord = getSrcTextField().value;
+        
+   	for(i=0; i<valArray.length; i++)
+   	{
+      	   if(keyWord.toLowerCase() == valArray[i].toLowerCase())
+   	   {
+   		retArr = keyArray[i];
+           }
+        }
+        
+   }    
+   
+   return retArr;
+}
+
+
+function hidePopup()
+{
+	getElement("showdata").style.visibility = "hidden";
+}
+
+function checkTextOnBlur()  //function to handle blur event of text object
+{	
+
+	if(getElement("showdata") && getElement("showdata").style.visibility=="visible")
+	{	
+		//get the text content 
+		//check if id is -1  
+			//clear the text field 
+		//no need to change anything 	
+		if(getCombo().options.selectedIndex < 0)
+		{
+			//getSrcTextField().value = getCombo().options[0].text;	   	
+			//getSrcIdField().value = getCombo().options[0].text;
+	   		//getCombo().options[0].selected=true;	   	
+			//getCombo().focus();	   	
+		}
+		else
+		{
+			//getSrcTextField().value = getComboText();
+			//getSrcIdField().value = getComboTextKey();		
+			//getCombo().focus();	   				
+		}
+
+	}     
+	
+
+	//getElement("showdata").style.visibility="hidden";
+	/**
+	if(getSrcIdField().value == "-1")
+	{
+		getSrcTextField().value="";
+	}	
+
+	if(getElement("showdata") && getElement("showdata").style.visibility=="visible" && keyFlag==1)
+	{
+		getElement("showdata").style.visibility="hidden";
+	}		  
+	
+	
+	keyFlag=0;
+	**/
+
+}
+
+function bindEvents(txtObj)
+{
+	getSrcTextField().attachEvent("onblur",checkTextOnBlur );
+}
+
+
+
+//================= End utitilities ============
+
+
+//=================== key checks ==================
+
+function checkKeysCombo(e)
+{
+	var code = (window.event) ? event.keyCode : e.keyCode;		
+	
+	getSrcIdField().value = "-1";
+	
+	if(code == 13)
+	{
+		getdata();
+		autoCompleteSelected();
+	}
+	else if(code == 27)
+	{
+	    	//getSrcTextField().value = "";
+	    	//getSrcIdField().value = "-1";
+		getSrcTextField().focus();
+		hidePopup();
+	}
+	else if(code == 38)
+	{
+	
+		if(getCombo().selectedIndex == 0)
+		{
+		 	getSrcTextField().value = getComboText();
+		 	getSrcIdField().value = getComboTextKey();		
+		 	textStr=getSrcTextField().value;
+			getSrcTextField ().focus();
+		}
+		else
+		{			
+		 	getSrcTextField().value = getComboText(); 
+		 	getSrcIdField().value = getComboTextKey();
+		 	textStr=getSrcTextField().value;
+		}
+	}
+	else if(code == 40)
+	{
+		getSrcTextField().value = getComboText();
+		getSrcIdField().value = getComboTextKey();
+		textStr=getSrcTextField().value;
+	}	
+
+}
+
+handleACSelectEvent = function (a,b,c){
+	//to be overridden by calling pages
+}
+function autoCompleteSelected(){
+	if( handleACSelectEvent ){
+		handleACSelectEvent(getSrcIdField().name , getSrcTextField().value,getSrcIdField().value);
+	}
+}
+
+function checkKeysText(e)
+{
+   	var code = (window.event) ? event.keyCode : e.keyCode;		
+	//getSrcIdField().value = "-1"; Commented for the fix of Bug # 15821.
+	
+//alert(code);
+	if(code == 40)//Pressing down arrow
+	{	
+	   if(getElement("showdata").style.visibility == 'visible')
+	   {	
+	      	getSrcTextField().value = getCombo().options[0].text;	   
+	      	getSrcIdField().value = getCombo().options[0].value;	
+	      	textStr=getSrcTextField().value;   	
+	      	getCombo().options[0].selected=true;
+    		keyFlag=1;
+	      	getCombo().focus();
+	   }  
+	   
+	   return 1;
+	}
+	else if(code == 119)//Pressing F8 key
+	{
+		if(getElement("showdata"))
+		{
+	    		getSrcTextField().value = "";	
+	    		return 0;
+	    	}
+	    	else
+	    	{
+	    		return 1;
+	    	}
+	}else if(code == 27 )//Pressing Esc key
+	{
+	   // getSrcTextField().value = "";
+	   //= "-1";
+	   keyV = getACKeyFromACText(textStr);
+	   //alert(textStr);
+	   //alert(keyV);
+	   if( keyV != -1 ){
+	   	getSrcTextField().value = textStr;
+	   	getSrcIdField().value=keyV;
+	   }else{
+	   	getSrcTextField().value = "";
+	   	getSrcIdField().value=-1;
+	   }
+	    hidePopup();
+	    return 1;
+	}  	
+	else if((code>64 && code<92) || (code>95 && code<123) || (code>46 && code<57) || code==32 || code==46 || code==16)
+	{
+	    textStr=getSrcTextField().value;
+	    return 0;
+	}else if( code == 8){//Pressing Backspace key
+		return 0;
+	}   
+}
+
+//================= End key checks =================
+
+
+//================ Data handling ================
+function getACKeyFromACText(textValue){
+	var sArr = splitDataString(srcOptions,"|");  // array for key-value strings
+	                                            //changed srcOptions.value to srcOptions since srcOptions
+	                                            // will contain the populated data thej 23/08/2006
+	if(sArr.length > 0){
+		var keys = new Array();
+	     	for(i=0; i<sArr.length; i++){
+	     		var rArr = splitDataString(sArr[i],"@");//split key-value pair
+	     		if( rArr[1].toLowerCase() == textValue.toLowerCase() ){
+	     			return rArr[0];
+	     		}
+	     	}
+	     	return -1;
+     	}	
+}
+
+function getACTextFromACKey(keyValue){
+	var sArr = splitDataString(srcOptions,"|");  // array for key-value strings
+	                                             //changed srcOptions.value to srcOptions since srcOptions
+	                                            // will contain the populated data thej 23/08/2006
+	                                               
+	if(sArr.length > 0){
+		var texts = new Array();
+	     	for(i=0; i<sArr.length; i++){
+	     		var rArr = splitDataString(sArr[i],"@");//split key-value pair
+	     		if( rArr[0] == keyValue ){
+	     			return rArr[1];
+	     		}
+	     	}
+	     	return "";
+     	}	
+}
+
+function toKeyValuePairs(valStr)
+{
+     var sArr = splitDataString(valStr,"|");  // array for key-value strings
+     
+     if(sArr.length > 0)
+     {
+     
+     	keyArray = new Array();
+     	valArray = new Array();
+     	
+     	for(i=0; i<sArr.length; i++)
+     	{
+     		var rArr = splitDataString(sArr[i],"@");  //split key-value pair
+     		keyArray[i] = rArr[0];
+     		valArray[i] = rArr[1];
+     	}     
+     } 
+}
+
+function getdata()
+{	
+	if(getElement("showdata") && getCombo().options.length >0)
+	{
+		getSrcTextField().value = getComboText();
+		getSrcIdField().value = getComboTextKey();
+		getDiv().style.visibility="hidden";	
+		getSrcTextField().focus();			
+		return false ;
+	}	
+}
+
+//================= End data handling ==============
+
+
+
+//================= Auto complete functions ============
+
+function initAutoComplete(txtObj)
+{    
+	srcText = txtObj ; 	
+	//bindEvents(); 
+	var children = txtObj.parentNode.childNodes;  
+	
+	for ( i=0;i< children.length ;i++) {	 
+		if( children[i].name == txtObj.name ) {	
+			srcId = children[i + 1] ;
+ 			var divElementNodes = children[i + 2].childNodes;//data is put as a text inside a div thej 7/11/2006
+			srcOptions = "";
+			for ( j=0;j< divElementNodes.length ;j++) {
+				srcOptions += divElementNodes[j].data;
+			}	 
+			
+		}		
+	}		
+	
+	//srcOptions=document.getElementById("hidval1");
+	//srcId=document.getElementById("hidval2");
+	toKeyValuePairs(srcOptions);	//srcOptions will have the populated data : thej 23/08/2006
+	placeDiv();
+}
+
+function doAutoComplete( e , textObj )
+{   
+
+ 	if(  getSrcTextField() == null ||  getSrcTextField().name != textObj.name )
+ 	{
+		initAutoComplete(textObj);
+	}
+	
+   	if(checkKeysText(e) == 0)
+	{
+		if(getSrcOptionsField() == "") //srcOptions will have the populated data : thej 23/08/2006
+		{
+   			alert("Empty Data");
+	   	}	   	
+	   	else
+	   	{
+      	   		var hidObjValue = getSrcOptionsField(); //srcOptions will have the populated data : thej 23/08/2006
+	   		updatepage();		   
+	   	}	
+	}   	
+   		
+}
+
+function doAutoCompleteOnChange(textObj){
+	if(getDiv().style.visibility=='hidden'){
+		if(getSrcOptionsField() == "") //srcOptions will have the populated data : thej 23/08/2006
+		{
+			alert("Empty Data");
+		}	   	
+		else
+		{
+			var hidObjValue = getSrcOptionsField(); //srcOptions will have the populated data : thej 23/08/2006
+			updatepage();		   
+		}
+	}
+}
+
+function updatepage()
+{	
+	var tmpArray = findMatch();			
+	
+	if( tmpArray.length > 0)
+	{
+			
+		var thtml = "<select name=\"selcat\" multiple style=\"border-style:none;background-color:#FFFFCC;left:10px\" onkeyUp=\"checkKeysCombo(event);\"  onClick=\"comboSelected(event);hidePopup()\" onDblClick=\"getdata();\">";   			    				
+				
+		for(i=0; i<tmpArray.length; i++)
+		{			
+			var record = splitDataString(tmpArray[i],"@");
+			
+			if(i==0)
+			{
+			  thtml = thtml + "<option value=" + record[0] + " >" + record[1] + "</option>";
+			}  
+			else
+			{
+			  thtml = thtml + "<option value=" + record[0] + " >" + record[1] + "</option>";
+			}
+		}
+		thtml = thtml + "</select>";	
+
+		var divtag = getDiv();
+		divtag.innerHTML = thtml;		
+			
+		//set width and height of the combo box
+		getCombo().style.width = getCombo().offsetWidth + 5; 		
+		if(getCombo().offsetHeight > 200)
+		{
+			getCombo().style.height = "200px";
+		}	
+
+		getDiv().style.visibility = "visible";	
+		
+		var rVal = findExactMatch();
+		getSrcIdField().value = (rVal=="" ? "-1" : rVal);
+		
+	 }
+	 else
+	 {
+	 	getSrcIdField().value="-1";
+		getDiv().style.visibility="hidden";
+	 }
+ 
+}  
+function getACSelectedKey(controlName){
+	if( getJadeControl(controlName) ){
+		return getJadeControl(controlName).value;
+	}
+}
+function getACSelectedValue(controlName){
+	if( getJadeControl(controlName) ){
+		return getJadeControl(controlName+"_text").value;
+	}
+}
+function getACKeyValues(controlName){
+	if( getJadeControl(controlName) ){
+		var sArr = splitDataString(getJadeControl(controlName+"_options").value,"|");  // array for key-value strings
+		if(sArr.length > 0){
+			var keys = new Array();
+		     	for(i=0; i<sArr.length; i++){
+		     		var rArr = splitDataString(sArr[i],"@");//split key-value pair
+		     		keys[i] = rArr[0];
+			}  
+			return keys;
+     		}
+	}
+}
+function setACKey(controlName,key){
+	if( getJadeControl(controlName) ){
+		acTxtValue =  getACTextFromACKey(key);
+		if( acTxtValue!="" ){
+			getJadeControl(controlName).value = key;
+			getJadeControl(controlName+"_text").value = acTxtValue;
+		}
+	}
+}
+//================= End Auto complete functions ===============

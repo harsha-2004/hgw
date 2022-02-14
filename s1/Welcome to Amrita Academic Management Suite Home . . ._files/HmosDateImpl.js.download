@@ -1,0 +1,442 @@
+/**
+ * Custom Date class implemented in Hmoscore project
+ * It contains API which return client date and server date
+ * Build in Date API is prototyped using this class.
+ * Now onwards When developer called getTime() from javascript it will return server date in millisecond only
+ * If any developer want to get client date in millisecond they must call getTimeClient() method from javascript.
+ */
+
+/*** Start of addition by Ramesh to support Date Constructor override ***/
+
+// Save the default constructor, Date and prototype for restoring back later 
+var _DefaultDateConstructor = Date.prototype.constructor;
+var _Date = Date;
+_Date.prototype = Date.prototype;
+
+// Constructor
+Date = function () {
+  var date = new _DefaultDateConstructor();
+  if (arguments === undefined || arguments.length === 0) {
+  }
+  else {
+    date.args = arguments;
+    if (arguments.length == 1) {
+    	
+            if (typeof arguments[0] === "string") { 
+                date.setTime(_Date.parse(arguments[0]));
+            }
+            else if (typeof arguments[0] === "number") {
+                date.setTime(arguments[0]);
+            }
+            else if (typeof arguments[0] === "object" && arguments[0] instanceof Date){
+            	date.setTime(arguments[0].getTime());
+            }
+    }
+    else if (arguments.length > 1) {
+    	// reset the date to 1 before setting month, so that setting Month later does not have side effect if the current day of month is not there in that month being set.
+    	date.setDate(1);
+        for (var i = 0; i < arguments.length; i++) {
+            switch (i) {
+                case 0:
+                    date.setFullYear(arguments[i]);
+                    break;
+                case 1:
+                    date.setMonth(arguments[i]);
+                    break;
+                case 2:
+                    date.setDate(arguments[i]);
+                    break;
+                case 3:
+                    date.setHours(arguments[i]);
+                    break;
+                case 4:
+                    date.setMinutes(arguments[i]);
+                    break;
+                case 5:
+                    date.setSeconds(arguments[i]);
+                    break;
+                case 6:
+                    date.setMilliseconds(arguments[i]);
+                    break;
+            }
+        }        
+    }
+    
+    //Set only passed arguments to the date
+    if(arguments.length == 1){
+  	  // do nothing
+    }else if(arguments.length == 2){  //given year and month clear date,hour,min,sec,ms	  
+  	  date.setDate(1);
+  	  date.setHours(0);
+ 	  date.setMinutes(0);
+ 	  date.setSeconds(0);
+ 	  date.setMilliseconds(0);
+  	  
+    }else if(arguments.length == 3){ //given year,month,date clear hour,min,sec,ms  
+  	  date.setHours(0);
+  	  date.setMinutes(0);
+  	  date.setSeconds(0);
+  	  date.setMilliseconds(0);
+  	  
+    }else if(arguments.length == 4){ //given year,month,date,hour clear min,sec,ms
+  	  date.setMinutes(0);
+  	  date.setSeconds(0);
+  	  date.setMilliseconds(0);
+  	  
+    }else if(arguments.length == 5){ //given year,month,date,hour,min clear sec,ms
+  	  date.setSeconds(0);
+  	  date.setMilliseconds(0);
+  	  
+    }else if(arguments.length == 6){ //given year,month,date,hour,min,sec clear ms
+  	  date.setMilliseconds(0);
+  	  
+    } 
+  }
+ 
+  //Storing back the original prototype since date.prototype gives undefined
+  date.prototype = Date.prototype;
+  return date;
+}
+
+//Static methods are overridden after this new change hence storing back the original
+Date.prototype = _Date.prototype;
+Date.now = _Date.now;
+Date.UTC = _Date.UTC;
+Date.parse = _Date.parse;
+//
+
+Date.prototype.args=null;
+/*** End of addition by Ramesh to support Date Constructor override ***/
+
+Date.prototype.thisdate=null;
+
+// Function used to set server Date to date object in javascript.
+Date.prototype.initDate=function() {
+    if (this.thisdate == null) {
+	// Date Constructor - handle arguments properly -- Ramesh
+        if (this.args == null) {
+          var serverdateinmills = getServerDate();
+          this.thisdate = new Date();
+          this.thisdate.setTime(serverdateinmills);
+        }
+        else {
+            this.thisdate = this;
+        }
+    }else{
+    	
+    }
+}
+
+// This function return date from server using XMLHTTP request Added by Dhania G 28/07/2008
+function getServerDate(){
+	var xmlHttpReqForServerDate; 
+    if(window.XMLHttpRequest)
+      {
+       xmlHttpReqForServerDate=new XMLHttpRequest();
+     }
+	 var locationUrl = location.href;
+	 var splitVal = locationUrl.split('/');
+	 var url = splitVal[0]+ "/" +splitVal[1]+ "/" +splitVal[2]+ "/" +splitVal[3];
+	 xmlHttpReqForServerDate.open("GET",url+"/HisAppServlet?action=HMOSCORE-GET_SERVER_DATE",false);
+	 xmlHttpReqForServerDate.send(null);
+	 if(xmlHttpReqForServerDate.readyState==4)
+	    {
+	       if(xmlHttpReqForServerDate.status==200)
+	       {
+	    	      var dateObj = xmlHttpReqForServerDate.responseXML.getElementsByTagName("curdate")[0].childNodes[0].nodeValue;	    	      
+	    	      return dateObj;	    	     
+		   }else{ 
+		        alert("Error loading page"+ xmlHttpReqForServerDate.status + ":"+xmlHttpReqForServerDate.statusText);
+		        return null;
+		   }
+	   }
+}
+
+//Function return the current server date. 
+function getCurrentDate(){
+	var curDate = new Date();
+	var curYear=parseInt(curDate.getFullYear());
+	var curMonth=parseInt(curDate.getMonth()) + 1;
+	var curDay=parseInt(curDate.getDate());	 
+	var today = curDay + "/" + curMonth + "/" + curYear;	 
+	var format = getClientDateFormat();
+	if( format != null && (format.toLowerCase()=="mm/dd/yyyy" || format.toLowerCase()=="mm-dd-yyyy") ){
+		today = curMonth + "/" + curDay + "/" + curYear;
+	}
+	return today;
+	
+}
+
+// Function return the current server date time 
+function getCurrentDateTime(){
+	var curDate = new Date();
+	var curYear=parseInt(curDate.getFullYear());
+	var curMonth=parseInt(curDate.getMonth()) + 1;
+	var curDay=parseInt(curDate.getDate());	 
+	var hrs = parseInt(curDate.getHours());
+	var mint = parseInt(curDate.getMinutes());
+	if(mint < 10){
+		mint="0"+mint;
+	}	
+	var today = curDay + "/" + curMonth + "/" + curYear +" "+ hrs + ":" + mint;	 
+	var format = getClientDateFormat();
+	if( format != null && (format.toLowerCase()=="mm/dd/yyyy" || format.toLowerCase()=="mm-dd-yyyy") ){
+		today = curMonth + "/" + curDay + "/" + curYear +" "+ hrs + ":" + mint;
+	}
+	return today;
+	
+}
+
+// Function which return client date in millisecond since midnight Jan 1, 1970
+Date.prototype.getTimeClient=Date.prototype.getTime;
+
+// Function which return server date in millisecond since midnight Jan 1, 1970
+Date.prototype.getTime = function() {
+    this.initDate();
+    return this.thisdate.getTimeClient();
+}
+
+//Function which return the year, as a four-digit number, from client Date object
+Date.prototype.getFullYearClient=Date.prototype.getFullYear;
+
+//Function which return the year, as a four-digit number, from server Date object
+Date.prototype.getFullYear = function() {
+     this.initDate();
+     return this.thisdate.getFullYearClient();
+}
+
+//Function which return the month from a client Date object (from 0-11)
+Date.prototype.getMonthClient=Date.prototype.getMonth;
+
+//Function which return the month from a server Date object (from 0-11)
+Date.prototype.getMonth = function() {
+     this.initDate();
+     return this.thisdate.getMonthClient();
+}
+
+//Function which return the day of the month  from a client Date object (from 1-31)
+Date.prototype.getDateClient=Date.prototype.getDate;
+
+//Function which return the day of the month  from a server Date object (from 1-31)
+Date.prototype.getDate = function() {
+     this.initDate();
+     return this.thisdate.getDateClient();
+}
+
+//Function which return the day of the week  from a client Date object (from 0-6 ie,0 = Sunday, ... , 6 = Saturday) 
+Date.prototype.getDayClient=Date.prototype.getDay;
+
+//Function which return day of the week  from a server Date object (from 0-6 ie, 0 = Sunday, ... , 6 = Saturday)
+Date.prototype.getDay = function() {
+     this.initDate();
+     return this.thisdate.getDayClient();
+}
+
+// Function which returns the hour of a client Date object (from 0-23)
+Date.prototype.getHoursClient = Date.prototype.getHours;
+
+//Function which returns the hour of a server Date object (from 0-23)
+Date.prototype.getHours = function(){
+	this.initDate();
+	return this.thisdate.getHoursClient();
+}
+
+//Function which returns the minutes  of a client Date object (from  0-59)
+Date.prototype.getMinutesClient = Date.prototype.getMinutes;
+
+//Function which returns the minutes  of a server Date object (from 0-59)
+Date.prototype.getMinutes = function(){
+	this.initDate();
+	return this.thisdate.getMinutesClient();
+}
+
+//Function which returns the seconds of a client Date object (from  0-59)
+Date.prototype.getSecondsClient = Date.prototype.getSeconds;
+
+//Function which returns the seconds of a server Date object (from 0-59)
+Date.prototype.getSeconds = function(){
+	this.initDate();
+	return this.thisdate.getSecondsClient();
+}
+
+//Function which returns the milliseconds of a client Date object (from  0-59)
+Date.prototype.getMillisecondsClient = Date.prototype.getMilliseconds;
+
+//Function which returns the milliseconds of a server Date object (from 0-59)
+Date.prototype.getMilliseconds = function(){
+	this.initDate();
+	return this.thisdate.getMillisecondsClient();
+}
+
+//Function which returns the year from client date object, as a two-digit or a three/four-digit number, depending on the browser. Use getFullYearClient() instead !!
+Date.prototype.getYearClient = Date.prototype.getYear;
+
+//Function which returns the year  from server date object, as a two-digit or a three/four-digit number, depending on the browser. Use getFullYear() instead !!
+Date.prototype.getYear = function(){
+	this.initDate();
+	return this.thisdate.getYearClient();
+}
+
+//Function which returns the date portion of a client Date object in readable form toGMTStringClient()
+Date.prototype.toDateStringClient = Date.prototype.toDateString;
+
+//Function which returns the date portion of a server Date object in readable form
+Date.prototype.toDateString = function(){
+	this.initDate();
+	return this.thisdate.toDateStringClient();
+}
+
+//Function which Converts a client Date object, according to Greenwich time, to a string. Use toUTCStringClient() instead !! 
+Date.prototype.toGMTStringClient = Date.prototype.toGMTString;
+
+//Function which Converts a server Date object, according to Greenwich time, to a string. Use toUTCString() instead !!
+Date.prototype.toGMTString = function(){
+	this.initDate();
+	return this.thisdate.toGMTStringClient();
+}
+
+//Function which Converts a client Date object,according to local time, to a string and returns the date portion 
+Date.prototype.toLocaleDateStringClient = Date.prototype.toLocaleDateString;
+
+//Function which Converts a server Date object, according to local time, to a string and returns the date portion
+Date.prototype.toLocaleDateString = function(){
+	this.initDate();
+	return this.thisdate.toLocaleDateStringClient();
+}
+
+//Function which Converts a client Date object,according to local time, to a string and returns the time portion 
+Date.prototype.toLocaleTimeStringClient = Date.prototype.toLocaleTimeString;
+
+//Function which Converts a server Date object,according to local time, to a string and returns the time portion
+Date.prototype.toLocaleTimeString = function(){
+	this.initDate();
+	return this.thisdate.toLocaleTimeStringClient();
+}
+
+//Function which Converts a client Date object,according to local time, to a string 
+Date.prototype.toLocaleStringClient = Date.prototype.toLocaleString;
+
+//Function which Converts a server Date object,according to local time, to a string
+Date.prototype.toLocaleString = function(){
+	this.initDate();
+	return this.thisdate.toLocaleStringClient();
+}
+
+//Function which Converts a client Date object  to a string
+Date.prototype.toStringClient = Date.prototype.toString;
+
+//Function which Converts a server Date object to a string
+Date.prototype.toString = function(){
+	this.initDate();
+	return this.thisdate.toStringClient();
+}
+
+//Function which returns the time portion of a client Date object in readable 
+Date.prototype.toTimeStringClient = Date.prototype.toTimeString;
+
+//Function which returns the time portion of a server Date object in readable 
+Date.prototype.toTimeString = function(){
+	this.initDate();
+	return this.thisdate.toTimeStringClient();
+}
+
+//Function which returns the time portion of a client Date object in readable 
+Date.prototype.toUTCStringClient = Date.prototype.toUTCString;
+
+//Function which returns the time portion of a server Date object in readable 
+Date.prototype.toUTCString = function(){
+	this.initDate();
+	return this.thisdate.toUTCStringClient();
+}
+
+//Function which Takes a client date and returns the number of milliseconds since midnight of January 1, 1970 according to universal time 
+Date.prototype.UTCClient = Date.prototype.UTC;
+
+//Function which Takes a server date and returns the number of milliseconds since midnight of January 1, 1970 according to universal time 
+Date.prototype.UTC = function(){
+	this.initDate();
+	return this.thisdate.UTCClient();
+}
+
+
+//Function which returns the milliseconds of a client Date object (from  0-999)
+Date.prototype.getTimezoneOffsetClient = Date.prototype.getTimezoneOffset;
+
+//Function which returns the milliseconds of a server Date object (from 0-999)
+Date.prototype.getTimezoneOffset = function(){
+	this.initDate();
+	return this.thisdate.getTimezoneOffsetClient();
+}
+
+//Function which returns the day of the month  of a client Date object according to universal time (from 1-31)
+Date.prototype.getUTCDateClient = Date.prototype.getUTCDate;
+
+//Function which returns the day of the month  of a server Date object according to universal time (from 1-31)
+Date.prototype.getUTCDate = function(){
+	this.initDate();
+	return this.thisdate.getUTCDateClient();
+}
+
+//Function which returns the day of the week from a client Date object according to universal time (from 0-6)
+Date.prototype.getUTCDayClient = Date.prototype.getUTCDay;
+
+//Function which returns the day of the week from a server Date object according to universal time (from 0-6)
+Date.prototype.getUTCDay = function(){
+	this.initDate();
+	return this.thisdate.getUTCDayClient();
+}
+
+//Function which returns the month from a client Date object according to universal time (from 0-11)
+Date.prototype.getUTCMonthClient = Date.prototype.getUTCMonth;
+
+//Function which returns the month from a server Date object according to universal time (from 0-11)
+Date.prototype.getUTCMonth = function(){
+	this.initDate();
+	return this.thisdate.getUTCMonthClient();
+}
+
+//Function which returns the four-digit year from a client Date object according to universal time
+Date.prototype.getUTCFullYearClient = Date.prototype.getUTCFullYear;
+
+//Function which returns the four-digit year from a server Date object according to universal time
+Date.prototype.getUTCFullYear = function(){
+	this.initDate();
+	return this.thisdate.getUTCFullYearClient();
+}
+
+//Function which returns the hour of a client Date object according to universal time (from 0-23)
+Date.prototype.getUTCHoursClient = Date.prototype.getUTCHours;
+
+//Function which returns the hour of a server Date object according to universal time (from 0-23)
+Date.prototype.getUTCHours = function(){
+	this.initDate();
+	return this.thisdate.getUTCHoursClient();
+}
+
+//Function which returns the minutes of a client Date object according to universal time (from 0-59)
+Date.prototype.getUTCMinutesClient = Date.prototype.getUTCMinutes;
+
+//Function which returns the minutes of a server Date object according to universal time (from 0-59)
+Date.prototype.getUTCMinutes = function(){
+	this.initDate();
+	return this.thisdate.getUTCMinutesClient();
+}
+
+
+//Function which returns the seconds of a client Date object according to universal time (from 0-59)
+Date.prototype.getUTCSecondsClient = Date.prototype.getUTCSeconds;
+
+//Function which returns the seconds of a server Date object according to universal time (from 0-59)
+Date.prototype.getUTCSeconds = function(){
+	this.initDate();
+	return this.thisdate.getUTCSecondsClient();
+}
+
+//Function which returns the milliseconds of a client Date object according to universal time (from 0-999)
+Date.prototype.getUTCMillisecondsClient = Date.prototype.getUTCMilliseconds;
+
+//Function which returns the milliseconds of a server Date object according to universal time (from 0-999)
+Date.prototype.getUTCMilliseconds = function(){
+	this.initDate();
+	return this.thisdate.getUTCMillisecondsClient();
+}

@@ -1,0 +1,59 @@
+/**
+ * Entry point. Renders the content using the current theme.
+ *
+ * @module
+ */
+
+import '../assets/global/plugins/jquery.min.js';
+import { ROUTES } from './app.js';
+import { crossroads } from './components/index.js';
+import CustomRoutes from './components/routes.js';
+
+const $body = $("body");
+const PAGE_ID = "page-id";
+const ONLOAD = "onload";
+
+/**
+ * Proxy for body onload. Ensure that on load errors are handled. Allows us to inject code.
+ * @param  {String} name name of the function
+ */
+function pageLoadProxyFunction(name) {
+	if (!name)
+		return;
+
+	const fn = window[name.replace(/\(.*\)/, '')];
+
+	try {
+		console.warn("Window load");
+		if ($.isFunction(fn)) {
+			fn.call(this);
+		}
+	} catch (e) {
+		console.error(e);
+	}
+}
+
+/**
+ * Replace BODY onload with our entrypoint
+ */
+function bodyOnLoadProxy() {
+	const name = $body.attr(ONLOAD);
+
+	$(window).on("load", () => pageLoadProxyFunction(name));
+	$body.removeAttr(ONLOAD);
+}
+
+console.warn("Layout started");
+
+bodyOnLoadProxy();
+
+// Register default routes as well as those defined by extensions
+[...ROUTES, ...CustomRoutes].forEach(route => {
+	const priority = route.replace ? Number.MAX_VALUE : route.priority;
+	const r = crossroads.addRoute(route.url, route.callback, priority);
+
+	r.greedy = route.greedy !== undefined ? route.greedy : !route.replace;
+});
+
+// Route the current request
+crossroads.parse($body.data(PAGE_ID));

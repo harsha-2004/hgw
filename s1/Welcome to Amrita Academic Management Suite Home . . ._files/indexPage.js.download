@@ -1,0 +1,54 @@
+//Neethal : Function to check multiple instances of index.jsp
+function checkMultipleInstance(winname) {
+	if (getIndexCookie("windowname") == null) {
+		setIndexCookie("windowname", winname);
+		window.name = winname;
+		// alert("window name is set as " + winname + "for "
+		// + window.location.href);
+	} else {
+		if (getIndexCookie("windowname") != window.name) {
+			// alert("window name is not same as that present in cookie"
+			// + getIndexCookie("WINDOW_NAME") + " " + window.name);
+			window.location = "../../ErrMultipleWindow.jsp";
+		}
+	}
+}
+
+// Neethal : Function for setting cookie from client side
+function setIndexCookie(c_name, value, exdays) {
+	var exdate = new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value = escape(value)
+			+ ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+	document.cookie = c_name + "=" + c_value + ";path=/";
+}
+
+// Neethal :Function for getting cookie
+function getIndexCookie(c_name) {
+	var i, x, y, ARRcookies = document.cookie.split(";");
+	for (i = 0; i < ARRcookies.length; i++) {
+		x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+		y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+		x = x.replace(/^\s+|\s+$/g, "");
+		if (x == c_name) {
+			return unescape(y);
+		}
+	}
+}
+
+//Showing messaging in case of Empty report alert when accessing through HIS menu 
+/*Commented this code .Becxause this is for spagoBi reports.Now aums is not using this
+ * Jisha 05/06/2021
+ * 
+ * if (window.addEventListener) {
+      window.addEventListener('message', sendAlertMsg, false);
+ } else if (window.attachEvent) {
+      window.attachEvent('onmessage', sendAlertMsg);
+}
+
+function sendAlertMsg(event) {
+  var msg = event.data;
+  if(msg.indexOf("The report is empty.") > -1){
+    alert(msg);
+  }
+}*/

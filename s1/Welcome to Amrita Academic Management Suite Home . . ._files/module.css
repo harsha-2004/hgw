@@ -1,0 +1,505 @@
+/*tooltip backgroud as bootstrap info*/
+.tooltip-inner {
+	background-color: #17a2b8 !important;
+}
+.ph-info{
+	padding: 0px 0px 0px 15px; 	
+}
+.popoverContentPatientInfo{
+	max-width: 500px;
+	min-width: 250px;
+	color:black;
+}
+.ttd{
+ 	font-size:11px;
+ 	background-color: white;
+	color:#000000;
+	padding: 1px;
+	padding-right: 8px;
+}
+.ttable{
+ 	font-size:12px;
+	color:#000000;
+	 }
+#WzTtDiV{
+	background-color: white !important;
+	border: 1px solid;
+  padding: 10px;
+	box-shadow: 3px 3px #888888;
+	color: black;
+	border-color:black !important;
+	border: 1px solid rgba(0,0,0,.2);
+  border-radius: 6px;
+}	 
+#WzBoDy{
+		background-color: white !important;
+		border-color: black !important;
+}
+#WzTiTl{
+		background-color: white !important;
+		border-color: black !important;
+		color: black;
+		font-family: inherit !important;
+		font-size: 12px !important;
+}
+#WzTiTlI{
+		background-color: white !important;
+		border-color: black !important;
+		color: black !important;
+		font-family: inherit !important;
+		font-size: 12px !important;
+}
+#WzBoDyI{
+	font-family: inherit !important;
+	font-size: 12px !important;
+}
+
+/*
+Color coding styles
+*/
+
+.blockedYN{
+	background-color: #E0E0C0 !important;
+}
+.cancelledYesNo{
+	background-color: #F75D59 !important;
+}
+.materialMiscOrder{
+	background-color: #99cccc !important;
+}
+.miscOrder{
+background-color: #FFF284 !important;
+} 
+.advanceVisit{
+	background-color: #eedcdc !important;
+}
+.taxableService{
+background-color: #B0E0E6 !important;
+}
+.healthCheck{
+	background-color: #DDA0DD !important;
+}
+.payerBalanceAmount{
+	background-color: #F7BE81 !important;
+}
+.freeItemsYN{
+	background-color: #CCCCFF !important;
+}
+.rateContractYN{
+	background-color: #99FFCC !important;
+}
+.vaccination{
+	background-color: #FFB7B7 !important;
+}
+.vaccinationGiven{
+	background-color: #C6F7B9 !important;
+}
+.vaccinationDoneExternal{
+	background-color: #E0D75F !important;
+}
+.vaccinationTimeExpired{
+	background-color: #FFB7B7 !important;
+}
+.vaccinationGen{
+	background-color: #F3D1D1 !important;
+}
+.vaccinationFuture{
+	background-color: #D2D6DF !important;
+}
+.postedToAccount{
+	background-color: #eedcdc !important;
+}
+.pendingOrders{
+	background-color: transparent;
+}
+.mrdRequestCancelled{
+	background-color: #E78543 !important;
+}
+.mrdRequestPending{
+	background-color: #ADD8E6 !important;
+}
+.mrdRequestProcessed{
+	background-color: #90EE90 !important;
+}
+.mrdRequestGen{
+	background-color: #F0E68C !important;
+}
+.resultInterpretationA{
+	background-color: #E78543 !important;
+}
+.resultPanicLow{
+	background-color: #33CC00 !important;
+}
+.resultPanicHigh{
+	background-color: #FF0033 !important;
+}
+.resultPanicNormal{
+	background-color: #4F71F9 !important;
+}
+.resultInterpretationN{
+	background-color: #9966CC !important;
+}
+.panicHighFloat{
+	background-color: #FF1493 !important;
+}
+.packageService{
+	background-color: #8295B0 !important;
+}
+.noPackageService{
+	background-color: #CCDAE1 !important;
+}
+.readYN{
+	background-color: #a5d6a7 !important;
+}
+.highlightYN{
+	background-color: #FF69B4 !important;
+}
+.firstPriority{
+	background-color: #EE9EB4 !important;
+}
+.package{
+	background-color: #C4E1FF !important;
+}
+.planedOrder{
+	background-color: #F7D3B5 !important;
+}
+.pending{
+	background-color: #eeffdd !important;
+}
+.inProgress{
+	background-color: #A8E094 !important;
+}
+.processed{
+	background-color: #add8e6 !important;
+}
+.resendSample{
+	background-color: #cccccc !important;
+}
+.resendSampleReversed{
+	background-color: #eedcdc !important;
+}
+.knownReaction{
+	background-color: #efefef !important;
+}
+.bill{
+	background-color: #eeeeee !important;
+}
+.mistyrose{
+	background-color: #ffe4e1 !important;
+}
+.lightblue{
+	background-color: #add8e6 !important;
+}
+.substitutedYN{
+	background-color: #F9B7FF !important;
+}
+.stockable{
+	background-color: #FFFFCC !important;
+}
+.exteranlResultYN{
+	background-color: #CCFFE6 !important;
+}
+.nonFormularyYN{
+	background-color: #FFF0F5 !important;
+}
+.lowLocalQuantity{
+	background-color: #dcdcdc !important;
+}
+.highReoderLevel{
+	background-color: #d2691e !important;
+}
+.priceChangeYN{
+	background-color: #FCD5A5 !important;
+}
+.mrpChangeYN{
+	background-color: #FAB3FC !important;
+}
+.shrtLifeYn{
+	background-color: #FCBDAF !important;
+}
+.grnFreeItem{
+	background-color: #BAF3FD !important;
+}
+.serviceYN{
+	background-color: #B3E5FC !important;
+}
+.chequePrint{
+	background-color: #E0E0E0 !important;
+}
+.stockCategory{
+	background-color: #99CCFF !important;
+}
+.statPriority{
+	background-color: #e13f23 !important;
+}
+.amendedYN{
+	background-color: #FCBDAF !important;
+}
+.serviceCancelled{
+	background-color: #FFFF99 !important;
+}
+.additioanlDiscount{
+	background-color: #87CEFA !important;
+}
+.additioanlDiscountWriteOff{
+	background-color: #8181F7 !important;
+}
+.stockAccepted{
+	background-color: #FFC670 !important;
+}
+.substitutableYN{
+	background-color: #F0FFFF !important;
+}
+.triagingImmidiate{
+	background-color: #FF4000 !important;
+}
+.triagingDelayed{
+	background-color: #F5A9E1 !important;
+}
+.triagingMinor{
+	background-color: #D7DF01 !important;
+}
+.triagingEBA{
+	background-color: #94b8b8 !important;
+}
+.isSameGenericY{
+	background-color: #E6FFFF !important;
+}
+.isSameGenericN{
+	background-color: #EEEFE2 !important;
+}
+.workOrderYN{
+	background-color: #FFF8C6 !important;
+}
+.paymentStatus{
+	background-color: #D4F0CA !important;
+}
+.inactiveSequence{
+	background-color: #F75D74 !important;
+}
+.activeSequence{
+	background-color: #E3E0E0 !important;
+}
+.fontColorRed
+ {
+	background-color:transparent;
+	color: #FF0000;	
+}
+.fontColorBlue
+ {
+	background-color:transparent;
+	color: #0000FF ;
+}
+.fontColorGreen
+ {
+	background-color:transparent;
+	color:#009900 ;
+}
+.cancelledStatus{
+	background-color:#979899;
+}
+#popupMask {
+	position: absolute;
+	z-index: 450;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: .4;
+	filter: alpha(opacity:40);
+	/* this hack is so it works in IE
+	 * I find setting the color in the css gives me more flexibility 
+	 * than the PNG solution.
+	 */
+	background-color:transparent !important;
+	background-color: #333333;
+	/* this hack is for opera support
+	 * you can uncomment the background-image if you don't care about opera.
+	 * this gives you the flexibility to use any bg color that you want, instead of the png
+	 */
+	background-image: url("maskBG.png") !important; 
+	background-image:none;
+	background-repeat: repeat;
+	display:none;
+}
+.drillDownSubMenuDiv{
+		min-width: 175px !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left !important;
+    list-style: none !important;
+    text-shadow: none !important;
+    padding: 0px !important;
+    background-color: #ffffff !important;
+    margin: 10px 0px 0px 0px !important;
+    box-shadow: 5px 5px rgba(102, 102, 102, 0.1) !important;
+    border: 1px solid #eee !important;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.drillDownSubMenuTableTdMO{
+	background-color: rgba(231, 229, 229, 0.801) !important;
+	cursor:pointer !important;
+}
+.drillDownSubMenuTableTdDA{
+	color:  rgba(231, 229, 229, 0.801) !important;
+}
+.drillDownSubMenuTableTdDA td {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.drillDownSubMenuTableTd td {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.drillDownSubMenuTable {
+	text-align: left !important;
+}
+table.display.table-bordered>tbody>tr>td{
+	background-color:transparent;
+}
+table.dataTable.display tbody tr.odd{
+	background-color:white;
+}
+table.dataTable.display tbody tr.even{
+	background-color:white;
+}
+.packageStyle {
+	font-style: italic;
+	background-color:transparent;
+	color:white;
+	border: none;
+	cursor: pointer;
+}
+.labServiceLabel{
+  border: 0px;
+	background-color:transparent;
+	padding-left: 0px;
+	font-size: 12px;
+}
+.input_select
+{
+	BORDER-BOTTOM:  0px Inset;
+	BORDER-LEFT:  0px Inset;
+	BORDER-RIGHT:  0px Inset;
+	BORDER-TOP:  0px Inset;
+	height : 28px;
+	width: 28px;
+	background-image: url(/images/delta_notchecked.png);
+	cursor: auto;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+.input_red
+{
+	BORDER-BOTTOM:  0px Inset;
+	BORDER-LEFT:  0px Inset;
+	BORDER-RIGHT:  0px Inset;
+	BORDER-TOP:  0px Inset;
+	height : 28px;
+	width: 28px;
+	background-image: url(/images/delta_red.png);
+	cursor: auto;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+.input_green
+{
+	BORDER-BOTTOM:  0px Inset;
+	BORDER-LEFT:  0px Inset;
+	BORDER-RIGHT:  0px Inset;
+	BORDER-TOP:  0px Inset;
+	height : 28px;
+	width: 28px;
+	background-image: url(/images/delta_green.png);
+	cursor: auto;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+.smallLabelTextBold{
+	letter-spacing: 0px;
+	margin: 0px 0 0 0;
+	padding: 0px;
+	border: 0;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+	font-weight: bold;
+	border-width: 0px;
+	background-color:transparent;
+}
+.redLabel {
+    font-weight: bold;
+		color: #FF0000;
+}
+.editreport {
+    background-image: url(/images/ereport.gif) !important;
+    background-repeat: no-repeat;
+    width:130px;
+   
+}
+.editreport:hover {
+    background-image: url(/images/ereport.gif) !important;
+    background-repeat: no-repeat;
+    width:130px;
+   
+}
+.viewreport {
+    background-image: url(/images/vreport.gif) !important;
+    background-repeat: no-repeat;
+    width:130px;
+   
+}
+.viewreport:hover {
+    background-image: url(/images/vreport.gif) !important;
+    background-repeat: no-repeat;
+    width:130px;
+   
+}
+.makereport {
+    background-image: url(/images/mreport.gif) !important;
+    background-repeat: no-repeat;
+    width:130px;
+}
+.makereport:hover {
+    background-image: url(/images/mreport.gif) !important;
+    background-repeat: no-repeat;
+    width:130px;
+}
+.redcell {
+    background-color:  #FF0000 !important;
+}
+.greencell {
+    background-color:  #33FF00 !important;
+}
+.addComment {
+    background-image: url(/images/addComment.gif);
+    background-repeat: no-repeat;
+    border-width:0px;
+    cursor: pointer;
+    cursor: hand;
+    background-color: transparent;
+    width:25px;
+    height:27px;
+}
+.addComment:focus {
+    background-color: transparent;
+    outline: none;
+}
+.modComment {
+    background-image: url(/images/modComment.gif);
+    background-repeat: no-repeat;
+    border-width:0px;
+    cursor: pointer;
+    cursor: hand;
+    background-color: transparent;
+    width:25px;
+    height:26px;
+}
+.modComment:focus{
+   background-color: transparent;
+   outline: none;
+}

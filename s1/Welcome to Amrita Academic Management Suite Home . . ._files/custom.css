@@ -1,0 +1,765 @@
+/* Tree component - JSTree and JadeTree */
+
+div[id$="jstree"], div[id^="jade-tree"] {
+  overflow: auto;
+  height: 400px;
+}
+
+/* Patient Summary component */
+
+#patient-summary .truncate {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+#patient-summary .padding {
+  padding: 5px;
+}
+
+/* Clinical attributes icon animation */
+
+.blink {
+  animation: color_change 1s infinite;
+}
+
+@keyframes color_change {
+  0% {
+    background-color: #37918b;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+/* Nav bar and menu components */
+
+.page-header.navbar {
+  box-shadow: 0 1px 5px 2px rgba(69, 65, 78, .1);
+}
+
+.dropdown-menu {
+  margin: 0px;
+}
+
+/* Style to hide trash icon on favourites menu when the menu is collapsed */
+
+.page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed>li>a>.icon-trash {
+  display: none !important;
+}
+
+/* Styles for "add to favourites" icon */
+
+i.fa-heart:active {
+  color: #DF3E1B !important;
+  animation: pulse 0.1s ease-in-out 0s;
+}
+
+i.fa-heart::after {
+  color: #DF3E1B !important;
+  animation: pulse 0.1s ease-in-out 0s;
+}
+
+.icon-heart-red {
+  color: #DF3E1B !important;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25%, 75% {
+    transform: scale(1.5);
+  }
+  50% {
+    transform: scale(2);
+  }
+}
+
+/* Portlet */
+
+.portlet.bordered {
+  box-shadow: 0 1px 15px 1px rgba(69, 65, 78, .08);
+}
+/*
+.portlet.light {
+  padding-top: 5px;
+}
+*/
+/*
+.portlet.light>.portlet-title {
+  min-height: 30px;
+  height: 30px;
+  margin-bottom: 5px;
+}
+*/
+
+.portlet.light>.portlet-title {
+  min-height: 38px;
+  height: 30px;
+  margin-bottom: 5px;
+}
+.portlet.light>.portlet-title>.actions {
+  padding: 0px;
+}
+
+.reg {
+  width: 100%;
+  height: auto;
+  padding: 15px 30px 0;
+}
+
+/* Tab component */
+
+.nav>li>a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* Form components */
+
+form {
+  margin-bottom: 0px;
+}
+
+/* Styles for container of nested fieldsets */
+
+.fieldset-container {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-start;
+}
+
+/* Styles for labels */
+
+label.control-label.h6 {
+  margin-bottom: 1px;
+  padding-top: 11px;
+}
+
+/* Required styles */
+
+label.required::after {
+  content: "*";
+  color: red;
+  font-size: 12px;
+  padding-left: 2px;
+}
+
+/*Style for labels with specific class*/
+
+.labeltext, .labelText, .inputlabelText, .labelTextInvisible, .inputLabel {
+  border: 0px;
+  text-overflow: ellipsis;
+  background-color: transparent;
+}
+
+/*Style for labels with specific class*/
+
+.labelTextInvisible {
+  font-size: 0px;
+}
+
+/* Fontawesome Icons */
+
+[class^="fa-"], [class^="glyphicon-"], [class^="icon-"], [class*=" fa-"], [class*=" glyphicon-"], [class*=" icon-"] {
+  font-size: 14px !important;
+}
+
+/* Style for radio labels */
+
+.radio label.control-label.h6 {
+  padding-top: 3px;
+}
+
+/* Form - Styles for input groups */
+
+.input-group-addon i {
+  color: #333 !important;
+}
+
+/* Alignment issue of checkbox */
+
+.checkbox>label {
+  padding-left: 20px;
+}
+
+.input-group-addon .button {
+  padding: 0px;
+  margin: 0px;
+  background-color: #e5e5e5;
+  color: #333;
+}
+
+/* Styles for select2 dropdowns */
+
+.select2-container .select2-selection--multiple {
+  height: 32px;
+  overflow: auto;
+}
+
+.select2-search input {
+  background-color: transparent !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+  display: inline-block;
+}
+
+/* The hideous DHTMLX dropdown widget */
+
+.dhx_combo_list {
+  position: absolute;
+  z-index: 230;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #e0e0e0;
+  height: 100px;
+  background-color: white;
+}
+
+.dhx_combo_list div {
+  cursor: default;
+  padding: 2px;
+}
+
+.dhx_combo_input {
+  border: none;
+}
+
+.dhx_combo_input:focus {
+  outline: none;
+}
+
+.dhx_combo_img {
+  display: none !important;
+}
+
+/* Autocomplete textbox disabled styling */
+
+.dhx_combo_input:disabled {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+}
+
+/* Autocomplete text overflow styling */
+
+div[name$="_autocomplete"].input-sm {
+  overflow: hidden;
+}
+
+/* togglebutton */
+
+.togglebutton {
+  vertical-align: middle;
+}
+
+.togglebutton, .togglebutton label, .togglebutton input, .togglebutton .toggle {
+  user-select: none;
+}
+
+.togglebutton label {
+  cursor: pointer;
+}
+
+.togglebutton label input[type=checkbox] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.togglebutton label .toggle, .togglebutton label input[type=checkbox][disabled]+.toggle {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 15px;
+  background-color: rgba(80, 80, 80, 0.7);
+  border-radius: 15px;
+  margin-right: 15px;
+  transition: background 0.3s ease;
+  vertical-align: middle;
+}
+
+.togglebutton label .toggle:after {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #F1F1F1;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+  left: -5px;
+  top: -2px;
+  transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
+}
+
+.togglebutton label input[type=checkbox][disabled]+.toggle:after, .togglebutton label input[type=checkbox][disabled]:checked+.toggle:after {
+  background-color: #BDBDBD;
+}
+
+.togglebutton label input[type=checkbox]+.toggle:active:after, .togglebutton label input[type=checkbox][disabled]+.toggle:active:after {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.togglebutton label input[type=checkbox]:checked+.toggle:after {
+  left: 15px;
+}
+
+.togglebutton label input[type=checkbox]:checked+.toggle {
+  background-color: rgba(0, 150, 136, 0.5);
+}
+
+.togglebutton label input[type=checkbox]:checked+.toggle:after {
+  background-color: #009688;
+}
+
+.togglebutton label input[type=checkbox]:checked+.toggle:active:after {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 150, 136, 0.1);
+}
+
+/* Styles for radio button label */
+
+.radio label, label.radio-inline {
+  cursor: pointer;
+  padding-right: 20px;
+  position: relative;
+}
+
+.radio {
+  margin-top: 8px;
+}
+
+.radio span.circle, .radio span.check, label.radio-inline span {
+  display: block;
+  position: absolute;
+  left: -2px;
+  top: 2px;
+  transition-duration: 0.2s;
+}
+
+.radio .circle, label.radio-inline .circle {
+  border: 2px solid rgba(0, 0, 0, .54);
+  height: 15px;
+  width: 15px;
+  border-radius: 100%;
+}
+
+.radio .check, label.radio-inline .check {
+  height: 15px;
+  width: 15px;
+  border-radius: 100%;
+  background-color: #009688;
+  transform: scale3d(0, 0, 0);
+}
+
+.radio .check:after, label.radio-inline .check:after {
+  display: block;
+  position: absolute;
+  content: "";
+  background-color: rgba(0, 0, 0, 0.87);
+  left: -18px;
+  top: -18px;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  z-index: 1;
+  opacity: 0;
+  margin: 0;
+  transform: scale3d(1.5, 1.5, 1);
+}
+
+.radio input[type=radio]:focus:not(:checked)~.check:after, label.radio-inline input[type=radio]:focus:not(:checked)~.check:after {
+  animation: rippleOff 500ms;
+}
+
+.radio input[type=radio]:focus:checked~.check:after, label.radio-inline input[type=radio]:focus:checked~.check:after {
+  animation: rippleOn 500ms;
+}
+
+.radio input[type=radio], label.radio-inline input[type=radio] {
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.radio input[type=radio]:checked~.circle, label.radio-inline input[type=radio]:checked~.circle {
+  border-color: #009688;
+}
+
+.radio input[type=radio]:checked~.check, label.radio-inline input[type=radio]:checked~.check {
+  transform: scale3d(0.55, 0.55, 1);
+}
+
+.radio input[type=radio]:disabled~.check, .radio input[type=radio]:disabled~.circle {
+  cursor: not-allowed;
+}
+
+.radio input[type=radio]:disabled~.check, label.radio-inline input[type=radio]:disabled~.check {
+  opacity: 0.65;
+  background-color: rgba(80, 80, 80, 0.7);
+}
+
+.radio input[type=radio]:disabled~.circle, label.radio-inline input[type=radio]:disabled~.circle {
+  opacity: 0.65;
+  border-color: rgba(80, 80, 80, 0.7);
+}
+
+.radio input[type="radio"]:disabled~span[data-inputclass] {
+  opacity: 0.65;
+}
+
+@keyframes rippleOn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rippleOff {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Grid component */
+
+.grid-stack>.grid-stack-item.ui-draggable-dragging {
+  background-color: #E7FAE0;
+}
+
+.grid-stack>.grid-stack-item>.grid-stack-item-content {
+  overflow: visible !important;
+}
+
+/* Grid hover animation */
+
+.grid-stack>.grid-stack-item.hvr-glow {
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  transition-duration: 0.3s;
+  transition-property: box-shadow;
+  border-radius: 2px;
+}
+
+.grid-stack>.grid-stack-item.hvr-glow:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+.grid-stack>.grid-stack-item>.ui-resizable-se, .grid-stack>.grid-stack-item>.ui-resizable-sw {
+  background-image: none;
+}
+
+/* Show image on hover only when grid is enabled */
+
+.grid-stack>.grid-stack-item.ui-draggable-handle:hover>.ui-resizable-se, .grid-stack>.grid-stack-item.ui-draggable-handle:hover>.ui-resizable-sw {
+  background-image: url('resize.png');
+  background-size: 17px 17px;
+}
+
+/* Add padding to toggle button in responsive mode */
+
+.grid-stack-one-column-mode .togglebutton {
+  padding-top: 5px;
+}
+
+/* Styles for deleted grid items */
+
+.grid-stack-item.deleted>.grid-stack-item-content>fieldset {
+  opacity: 0.5;
+}
+
+.grid-stack-item.deleted {
+  outline: 1px dashed crimson;
+}
+
+/* Responsive Datatable component */
+
+table.display a {
+  font-size: 14px;
+}
+
+/* Restrict the width of textboxes and selects inside a table to its corresponding cell width */
+
+table.display[data-url] input[type='text'], table.display[data-url] select {
+  display: inline-block;
+  width: 100%;
+}
+
+/* Styles for datatable paging buttons. 
+Because there is a difference in the DOM of jadetables and dhtmlxtables when they have scrollbars, we have to deal with
+them differently. This is an anomaly. Both tables should ideally have the same DOM */
+
+table.display~div li.paginate_button, .dataTables_scroll~div li.paginate_button {
+  display: inline !important;
+  padding: 0px !important;
+  margin-left: 0px !important;
+}
+
+/* Remove blackline in paginate button */
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  border: none;
+}
+
+/* Add border to avoid paginate button moving issue */
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border: none;
+}
+
+/* Wrap text in a column to avoid overlap with text in next column */
+
+table.display[data-url] td {
+  overflow: hidden;
+}
+
+/* Styles for date fields  in a table */
+
+table.display td .dateTextBox {
+  width: 75px;
+  padding: 1px;
+}
+
+/* styles for datatable borders */
+
+table.display.table-bordered>tbody>tr>td, table.display.table-bordered>tbody>tr>th, table.display.table-bordered>tfoot>tr>td, table.display.table-bordered>tfoot>tr>th, table.display.table-bordered>thead>tr>td, table.display.table-bordered>thead>tr>th {
+  background-color: white;
+}
+
+/* Add border-top to the child class which is removed while eliminating border-top of first row in dhtmlx table */
+
+table.display[data-url].table-bordered tbody>tr>td.child {
+  border-top: 1px solid #ddd;
+}
+
+/* Reduce the extra width of right border added up due to the class table-bordered */
+
+table.display.table-bordered {
+  border-right-width: 0px;
+}
+
+/* Add width to right border of table before loading data */
+
+table.display.table-bordered th:last-child, table.display.table-bordered td:last-child {
+  border-right-width: 1px;
+}
+
+/* Change border-bottom of table thead and footer */
+
+table.display thead th, table.display thead td, table.display.no-footer {
+  border-bottom: 1px solid #ddd !important;
+}
+
+/* Reduce extra padding in tfoot of dhtmlx table */
+
+table.display[data-url].compact.table-bordered tfoot th, table.display.compact.table-bordered tfoot td {
+  padding: 0px;
+}
+
+/* Remove black color of border-top of tfoot and extra bottom-width of tfoot border */
+
+table.display.table-bordered tfoot th {
+  border-top: rgba(241, 241, 241, 0.034);
+  border-bottom-width: 0px;
+}
+
+/* Remove border-bottom of tables with pagination */
+
+.dataTables_scrollHead {
+  border-bottom: 0px !important;
+}
+
+/* Add extra margin to avoid overlap */
+
+.dataTables_wrapper {
+  margin-top: 16px;
+}
+
+table.display[data-url]~div.dataTables_paginate, .dataTables_wrapper~[id$="paging_row"] {
+  margin-bottom: 16px;
+}
+
+/* Textcolor for anchor */
+
+.textLink {
+  color: rgb(51, 122, 183);
+}
+
+.textLink:hover {
+  text-decoration: underline;
+}
+
+/* Styles for anchors */
+
+a, a:hover {
+  color: #fff;
+}
+
+td a, td a:hover {
+  color: #333;
+}
+
+/* Page-specific styles - these belong on the page, not here */
+
+/* Alert DIV on top of the page */
+
+.alert {
+  margin-bottom: 0;
+}
+
+#printbarcodesinfodiv {
+  border: 1px solid #e5e5e5 !important;
+  background-color: #ffff !important;
+  width: 350px !important;
+  font-size: 13px !important;
+  top: 55px !important;
+  left: 210px !important;
+  border-radius: 5px;
+  padding: 5px 5px 5px 5px;
+}
+
+#printbarcodesinfodiv [type="button"] {
+  color: #fff;
+  background-color: #45B6AF;
+  border-style: none;
+  margin: 2px;
+  border-radius: 4px;
+}
+
+#printbarcodesinfodiv [type="text"] {
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+
+
+/* new css 
+.page-header.navbar{
+    background-color: #e08f82 !important;
+}
+
+.page-sidebar {
+    background-color: #7fc0d2 !important;
+}
+
+.page-sidebar-closed .page-sidebar .page-sidebar-menu li:hover .sub-menu {
+    background-color: #d3f4fd !important;
+}
+
+.page-sidebar .page-sidebar-menu > li:hover > a{
+    background: #99dcef !important;
+    color: #4e7079 !important;
+}
+.page-sidebar .page-sidebar-menu .sub-menu > li:hover > a {
+	    background: #7fc0d2 !important;
+}
+*/
+
+#linkNav ul li.Mrphs-sitesNav__menuitem.is-selected .Mrphs-sitesNav__dropdown{
+	background: #7fc0d2 !important;
+border-top: 1px solid #7fc0d2 !important;
+border-right: 1px solid #7fc0d2 !important;
+border-bottom: 1px solid #7fc0d2 !important;
+border-left: 1px solid #7fc0d2 !important;
+}
+
+
+
+
+.linkre{
+border: 1px solid #e08f82!important;
+ color: #913527!important;
+}
+
+.linkgr{
+    border: 1px solid #9dbc74!important;
+    color: #4e800c!important;
+}
+.linkbl{
+border: 1px solid #89adb7!important;
+    color: #2690ad !important;
+}
+
+
+@media only screen and (min-width: 801px)
+	.Mrphs-siteHierarchy a.Mrphs-hierarchy--toolName {
+		 color: #913527 !important;
+}
+.mrphsc1{
+	background-color: #FFDFDA !important;
+}
+.mrphsc2{
+	background-color: #E6F5D2 !important;
+}
+.mrphsc3{
+	background-color: #B3C9CF !important;
+}
+/***@media (min-width: 769px) {
+ 
+  .fa-th{
+    visibility: hidden;
+   }
+} ***/
+  
+/***@media (min-width: 768px) {
+
+  .fa-th a, a:hover{  
+    color:#20b99b !important;
+  }
+}***/
+/*
+.portlet.light {
+    padding: 0px 0px 0px 0px; 
+    
+}
+*/
+@media (max-width: 600px) {
+  
+  .portlet.light{  
+       padding: 12px 0px 10px 0px !important;
+  }
+}
+
+.grid-stack>.grid-stack-item>.grid-stack-item-content {
+  position: initial !important;
+left: 0px !important;
+right: 0px !important;
+}
+
+@media (max-width: 644px){
+.reg {
+    padding: 0px 16px 16px 16px !important;
+ }
+}
+
+
+@media (max-width: 480px) {
+
+.page-header-fixed.page-header-fixed-mobile .page-header.navbar {
+
+     height: 0px !important;
+
+} 
+}
+
+@media (max-width: 991px) {
+.page-header.navbar .top-menu .navbar-nav {
+    display: inline-block;
+    margin: 0px 0px 0px 0px !important;
+}
+}
